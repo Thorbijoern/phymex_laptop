@@ -10,12 +10,17 @@ Die Hardware ist ein Fujitsu Esprimo Mobile D9510.
  - Microsoft PowerPoint läuft scheinbar nicht in Wine (getestet mit: Wine [Version]).
 
 
+## Vorbereitung
+Es war noch ein unaktiviertes (keine Lizens) Windows 7 auf dem Laptop zu testzwecken oder so installiert.
+Ich habe geschaut ob noch Dateien oder andere wichtige sachen darauf sind, aber habe nicht gefunden und fuhr mit der Installation fort.
+
+
 ## Linux Installation
 installierte Standartpakete
 Name neuer Nutzer: phybox
 
 
-## Nach der Linux Installation
+### Nach der Linux Installation
 Ich habe mit Gnome Software sämtliche vorinstallierten Spiele entfernt.
 Ich habe in Firefox ein paar vorgeschlagene Webseiten entfernt, da es sich bei diesen u.a. um Online-Shops handelte.
 Sie erschienen mir nicht besonders didaktisch wertvoll und können zur Not wieder manuell hinzugefügt werden.
@@ -193,20 +198,18 @@ to capture serial data:
  noch nichts gefunden
 
 
-
 ## TEST AN PHYBOX
-erfolgreich nachdem ich dem user phybox die gruppen sys und dialout gegeban habe
+erfolgreich nachdem ich dem user phybox die gruppen sys und dialout gegeben habe
 `usermod -a -G sys,dialout phybox`
 > schauen was gruppen machen/für rechte haben
 
 
-
-Weiteres Setup:
- - am netzwerk, unter root:
-    1. `apt update && apt upgrade` paket updates installieren
-    2. `apt install vim sudo`      vim und sudo installieren
-    3. `usermod -aG sudo phybox`   user phybox zur sudo gruppe hinzufügen
-    4. überprüfen mit `groups phybox`
+###Weiteres Setup:
+am netzwerk, unter root:
+ 1. `apt update && apt upgrade` paket updates installieren
+ 2. `apt install vim sudo`      vim und sudo installieren
+ 3. `usermod -aG sudo phybox`   user phybox zur sudo gruppe hinzufügen
+ 4. überprüfen mit `groups phybox`
  
 
 ## Microsoft Office installation:
@@ -228,7 +231,7 @@ Nach der Installation von Office kann Phymex installiert werden.
 ### Tests:
 Kurze Tests haben ergeben, dass Excel und Word scheinbar ziemlich problemlos laufen, aber Powerpoint startet leider nicht.
 
-Aber mit `wine winemenubuilder` lassen sich Einträge in das application menu erstellen.
+Aber mit `wine winemenubuilder` lassen sich Einträge in das gnome application menu erstellen.
 
 ## Phymex wine Einstellungen
 Nach dem reinstall in dem win32 wineprefix habe ich versucht ob das Hinzufügen der Phymex Executables (unter "....PHYMEX") und das setzten von anderen Windows Versionen für diese (Standart auf Windows 7 gelassen, hatte Windows 2000, 98 und 95 für Phymex) einen Unterschied bezüglich des grauen Bandes macht, was sich bei Vollbild über die Steuerelemente auf der rechten Seite schiebt, aber leider hatte das nicht funktioniert und ich habe sie wieder entfernt (der Standart wird wieder genutzt).
