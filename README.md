@@ -64,9 +64,6 @@ debug/errors von phymex:
     err:dc:CreateDCW no driver found for L",,"
 
 
-
-
-
 serial-port stuff:
 - installed setserial
 - muss vlt. zu gruppen hinzugefügt werden
@@ -91,7 +88,8 @@ Output:
     [ 3558.210088] serial 00:03: disabled
     [ 3559.356524] serial 00:03: activated
 
-apt install setserial #ist nicht installiert
+`apt install setserial` (ist nicht installiert)
+ > benötigt?
 setserial -g /dev/ttyS[0123] #zeigt config der seriellen-ports
 Output:
 
@@ -120,7 +118,7 @@ programme für serial, die ich iwo fand (oder auch nicht; aber nicht installert 
  - tip
 
 
-LÖSUNG:
+### Lösung:
 wine ist in den debian paketquellen irre veraltet (1.8.7)
 siehe https://wiki.winehq.org/Debian
 (eigene wine.list)
@@ -174,7 +172,7 @@ Output:
     0059:fixme:iphlpapi:NotifyIpInterfaceChange (family 0, callback 0x6a0cb608, context 0x958878, init_notify 0, handle 0x119fc88): stub
     wine: configuration in '/home/phybox/.wine' has been updated.
 
-wineboot -u noch mal ausgefürt
+`wineboot -u` noch mal ausgefürt
 Output:
 
     0030:err:winediag:SECUR32_initNTLMSP ntlm_auth was not found or is outdated. Make sure that ntlm_auth >= 3.0.25 is in your path. Usually, you can find it in the winbind package of your distribution.
@@ -198,17 +196,17 @@ to capture serial data:
 
 ## TEST AN PHYBOX
 erfolgreich nachdem ich dem user phybox die gruppen sys und dialout gegeban habe
-usermod -a -G sys,dialout phybox
+`usermod -a -G sys,dialout phybox`
 > schauen was gruppen machen/für rechte haben
 
 
 
 Weiteres Setup:
  - am netzwerk, unter root:
-    - 'apt update && apt upgrade'  # paket updates installieren
-    - 'apt install vim sudo'       # vim und sudo installieren
-    - 'usermod -aG sudo phybox'    # user phybox zur sudo gruppe hinzufügen
-    - überprüfen mit 'groups phybox'
+    1. `apt update && apt upgrade` paket updates installieren
+    2. `apt install vim sudo`      vim und sudo installieren
+    3. `usermod -aG sudo phybox`   user phybox zur sudo gruppe hinzufügen
+    4. überprüfen mit `groups phybox`
  
 
 ## Microsoft Office installation:
@@ -227,7 +225,7 @@ Man folg nun einfach dem Installer wie auch auf Windows.
 Die Programme sind nun unter `"~/.wine/drive_c/Program Files (x86)/Microsoft Office/Office12/"` als WINWORD.exe, EXCEL.exe und POWERPNT.exe installiert und könnten mit wineconsole ausgeführt werden.
 Nach der Installation von Office kann Phymex installiert werden.
 
-Tests:
+### Tests:
 Kurze Tests haben ergeben, dass Excel und Word scheinbar ziemlich problemlos laufen, aber Powerpoint startet leider nicht.
 
 Aber mit `wine winemenubuilder` lassen sich Einträge in das application menu erstellen.
