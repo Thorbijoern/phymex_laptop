@@ -28,37 +28,35 @@ Ich habe in Firefox ein paar vorgeschlagene Webseiten entfernt, da es sich bei d
 Sie erschienen mir nicht besonders didaktisch wertvoll und können zur Not wieder manuell hinzugefügt werden.
 
 am netzwerk, unter root:
- 1. `apt update && apt upgrade` Paket Datenbank aktualisieren und Paket-Updates installieren
- 2. `apt install vim sudo`      vim und sudo installieren
- 3. `usermod -aG sudo phybox`   User phybox zur sudo Gruppe hinzufügen
- 4. überprüfen mit `groups phybox` (sudo muss mit aufgelistet sein)
- 5. aus- und wieder einloggen bzw. reboot zum übernehmen der Änderung
+ 1. `su -` zu root wechseln
+ 2. `apt update && apt upgrade` Paket Datenbank aktualisieren und Paket-Updates installieren
+ 3. `apt install vim sudo`      vim und sudo installieren
+ 4. `usermod -aG sudo phybox`   User phybox zur sudo Gruppe hinzufügen
+ 5. überprüfen mit `groups phybox` (sudo muss mit aufgelistet sein)
+ 6. `exit` root verlassen
+ 7. mit phybox aus- und wieder einloggen bzw. reboot zum Übernehmen der Gruppen-Änderungen
 
 
 ## Wine Installation
 Nach der Installation von dem Linux habe ich wine (übersetzt Windows API calls für POSIX-Systeme) installiert:
-Im Terminal:
 
-    sudo apt update
-    sudo apt install wine
+    sudo dpkg --add-architecture i386
+ > nötig für wine aus wine repo?
 
-    sudo dpkg --add-architecture i386 && apt-get update && apt-get install wine32
-
-nachdem das abgeschlossen ist, kann man nun die gewünschten Programme in Wine installieren
-
-wine ist in den debian paketquellen irre veraltet (1.8.7)
-siehe https://wiki.winehq.org/Debian
-(eigene wine.list)
-vor dem apt update muss folgendes installiert werden:
-`apt install apt-transport-https`
+wine ist in den debian paketquellen irre veraltet (1.8.7), siehe https://wiki.winehq.org/Debian.
+Deswegen erstellte ich eine 
+Vor dem apt update muss folgendes installiert werden:
+`sudo apt install apt-transport-https`
+Nun kann man `sudo apt update` ausführen.
 falls man noch altes wine installiert hat sollte man folgendes ausführen:
- 1. `apt remove wine` alte wine version entfernen
- 2. `apt autoremove` unbenötigte dependencies entwfernen
- > am besten nutzt man apt und nicht apt get
-am besten installiert man die stable (wine-stable) version mit den vorgeschlagenen paketen (--install-recommends)
+ 1. `sudo apt remove wine` alte wine version entfernen
+ 2. `sudo apt autoremove` unbenötigte dependencies entwfernen
+ > apt ist neuer und simpler als apt get
 
-    apt install wine-stable --install-recommends
-nun hat man neuste wine version, es sollte alles gehen
+am besten installiert man die stable (wine-stable) Version mit den vorgeschlagenen Paketen (--install-recommends)
+
+    sudo apt install wine-stable --install-recommends
+Nun hat man die neuste wine Version und kann die gewünschten Programme in wine installieren
  
 
 ## Microsoft Office installation:
