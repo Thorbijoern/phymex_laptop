@@ -4,10 +4,12 @@ In dieser Datei beschreibe ich die Schritte die ich zum aufsetzen eines Laptops 
 Als Basis dient die GNU/Linux Distribution Debian 9 alias "stretch".
 Die Hardware ist ein Fujitsu Esprimo Mobile D9510.
 
+Für die Installation wird eine Internetverbindung benötigt.
+
 ## Known Limitations/Problems
  - Der integrierte WLAN (und Bluetooth) Adapter benötigt nicht-freie Treiber, die ich nicht finden konnte.
  - Ich konnte leider das Problem in Phymex nicht lösen, bei dem im Vollbild-Modus eine graue Leiste am rechten Rand Steuerelemente überdeckt.
- - Microsoft PowerPoint läuft scheinbar nicht in Wine (getestet mit: Wine [Version]).
+ - Microsoft PowerPoint läuft scheinbar nicht in Wine (getestet mit: wine-3.0.3).
 
 
 ## Vorbereitung
@@ -27,7 +29,7 @@ Ich habe mit Gnome Software sämtliche vorinstallierten Spiele entfernt.
 Ich habe in Firefox ein paar vorgeschlagene Webseiten entfernt, da es sich bei diesen u.a. um Online-Shops handelte.
 Sie erschienen mir nicht besonders didaktisch wertvoll und können zur Not wieder manuell hinzugefügt werden.
 
-am netzwerk, unter root:
+unter root:
  1. `su -` zu root wechseln
  2. `apt update && apt upgrade` Paket Datenbank aktualisieren und Paket-Updates installieren
  3. `apt install vim sudo`      vim und sudo installieren
@@ -36,15 +38,18 @@ am netzwerk, unter root:
  6. `exit` root verlassen
  7. mit phybox aus- und wieder einloggen bzw. reboot zum Übernehmen der Gruppen-Änderungen
 
+Für das Schulnetzwerk wird ein Proxy benötigt. Falls man sich im Schulnetzwerk befindet oder man die Installation abgeschlossen hat wird im folgenden beschrieben, was man setzen muss:  
+In der "Einstellungen"-GUI, unter Netzwerk, unter Netzwerk-Proxy wählt man "Automatisch" als Methode aus und gibt dann die Konfigurationsadresse (welche man von einem anderen Schulrechner bekommen kann) ein.
+
 
 ## Wine Installation
 Nach der Installation von dem Linux habe ich wine (übersetzt Windows API calls für POSIX-Systeme) installiert:
 
-    sudo dpkg --add-architecture i386
- > nötig für wine aus wine repo?
-
 wine ist in den debian paketquellen irre veraltet (1.8.7), siehe https://wiki.winehq.org/Debian.
-Deswegen erstellte ich eine 
+ > die folgende installation ist nicht follständig dokumentiert, siehe https://wiki.winehq.org/Debian für eine bessere Anleitung.
+
+    sudo dpkg --add-architecture i386
+Deswegen erstellte ich eine wine.list.
 Vor dem apt update muss folgendes installiert werden:
 `sudo apt install apt-transport-https`
 Nun kann man `sudo apt update` ausführen.
@@ -80,6 +85,8 @@ Kurze Tests haben ergeben, dass Excel und Word scheinbar ziemlich problemlos lau
 
 Mit `wine winemenubuilder` lassen sich Einträge in das gnome application menu erstellen.
 
+Während der Tests habe ich auch je eine Word und Excel Datei erstellt und in den Dateieigenschaften eingestellt, diese standartmäßig mit dem jeweiligen Office-Program zu öffnen.
+
 
 ## Phymex Installation
 PhyMex (die Software für die PhyBox) kann bei der Uni-Bayreut ([link](http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/0_download/phybox.zip)) runter geladen werden bzw. von einer CD genommen werden.
@@ -89,7 +96,7 @@ Im Terminal:
 
     wine Phymex_Setup.exe
 
-Dies wird das setup-programm für phymex starten.
+Dies wird das setup-programm für Phymex starten.
 Wenn das Setup-Programm gestartet ist folgt man einfach dem Prozess und benutzt die Standarteinstellungen.
 Das am Ende noch offene kleine Fenster (Entpacker) kann man einfach schließen.
 
@@ -124,6 +131,7 @@ Arbeitsoberfläche
     - :ballot_box_with_check: Eingebundene Datenträger
 Erweiterungen
  - Applications menu: An
+ - Window list: An
 Fenster
  - Knöpfe der Titelleiste
     - Maximieren: An
