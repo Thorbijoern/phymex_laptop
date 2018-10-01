@@ -95,8 +95,8 @@ am besten installiert man die stable (wine-stable) version mit den vorgeschlagen
 nun hat man neuste wine version, es sollte alles gehen
 habe noch gruppen wieder weg genommen
 neustarten um gruppen upzudaten
-nach neustart `wine -V` > konfigurationsupdate... pakete fehlen, erstmal dort ignoriert
-Otput:
+nach neustart `wine -V` > konfigurationsupdate... pakete fehlen, erstmal ignoriert
+Output:
 
     000f:fixme:service:scmdatabase_autostart_services Auto-start service L"MountMgr" failed to start: 2
     Could not load wine-gecko. HTML rendering will be disabled.
