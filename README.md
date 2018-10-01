@@ -233,5 +233,34 @@ Kurze Tests haben ergeben, dass Excel und Word scheinbar ziemlich problemlos lau
 
 Aber mit `wine winemenubuilder` lassen sich Einträge in das gnome application menu erstellen.
 
+
 ## Phymex wine Einstellungen
 Nach dem reinstall in dem win32 wineprefix habe ich versucht ob das Hinzufügen der Phymex Executables (unter "....PHYMEX") und das setzten von anderen Windows Versionen für diese (Standart auf Windows 7 gelassen, hatte Windows 2000, 98 und 95 für Phymex) einen Unterschied bezüglich des grauen Bandes macht, was sich bei Vollbild über die Steuerelemente auf der rechten Seite schiebt, aber leider hatte das nicht funktioniert und ich habe sie wieder entfernt (der Standart wird wieder genutzt).
+
+
+## Weitere Einstellungen
+### Einstellungen
+Einstellungen in der "Einstellungen"-GUI:
+Maus und Tastfeld:
+ - Tastfeld
+    - Bildlauf am Rand: An
+### Gnome-Tweaks Einstellungen
+Gnome-Tweaks oder "Optimierungswerkzeug" ist eine kleine GUI Anwendung um Einstellungen der Gnome Desktop-Environment anzupassen.
+Ich habe folgende Einstellungen vorgenommen:
+Arbeitsoberfläche
+ - Symbole auf Arbeitsfläche: An
+    - :ballot_box_with_check: Persönlicher Ordner
+    - :black_square_button: Netzwerk Server
+    - :ballot_box_with_check: Papierkorb
+    - :ballot_box_with_check: Eingebundene Datenträger
+Erweiterungen
+ - Applications menu: An
+Fenster
+ - Knöpfe der Titelleiste
+    - Maximieren: An
+    - Minimieren: An
+Obere Leiste
+ - Anwendungsmenü anzeigen: An
+ - Uhr
+    - :ballot_box_with_check: Datum zeigen
+    - :black_square_button: Sekunden zeigen
