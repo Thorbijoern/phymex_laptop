@@ -9,6 +9,9 @@
         - Links zu infos
     - die gesicherten bash_history dateien nach wichtigen zu dokumentierenden sachen durchsuchen bzw. löschen
     - sudo installation dokumentieren, anderes umschreiben
+    - Zielstellung, was funktioniert, was funktioniert nicht
+    - zeit die ich dran gearbeitet habe
+    - 
  - suche in firefox vlt. wieder ändern
  - schauen was gruppen (sys, dialout) machen/für rechte haben
  - unterschied Phymex1.exe und Phymexma.exe
