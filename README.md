@@ -5,11 +5,12 @@ Als Basis dient die GNU/Linux Distribution Debian 9 alias "stretch".
 Die Hardware ist ein Fujitsu Esprimo Mobile D9510.
 
 Für die Installation wird eine Internetverbindung benötigt.
+## Aufgabe / Zielsetzung
+
 
 ## Known Limitations/Problems
  - Der integrierte WLAN (und Bluetooth) Adapter benötigt nicht-freie Treiber, die ich nicht finden konnte.
  - Ich konnte leider das Problem in Phymex nicht lösen, bei dem im Vollbild-Modus eine graue Leiste am rechten Rand Steuerelemente überdeckt.
- - Microsoft PowerPoint läuft scheinbar nicht in Wine (getestet mit: wine-3.0.3).
 
 
 ## Vorbereitung
@@ -17,7 +18,8 @@ Es war noch ein unaktiviertes (keine Lizens) Windows 7 auf dem Laptop zu Testzwe
 Ich habe geschaut ob noch Dateien oder andere wichtige Sachen darauf sind, aber habe nicht gefunden und fuhr mit der Installation fort.
 
 
-## Linux Installation
+## Linux
+### Installation
 Sprache, Tastatur: Deutsch-Deutschland  
 Zeitzohne: Mitteleuropa/GMT (UTC+1:00), Berlin  
 installierte Standartpakete  
@@ -25,9 +27,8 @@ Name neuer Nutzer: phybox
 
 
 ### Nach der Linux Installation
-Ich habe mit Gnome Software sämtliche vorinstallierten Spiele entfernt.
-Ich habe in Firefox ein paar vorgeschlagene Webseiten entfernt, da es sich bei diesen u.a. um Online-Shops handelte.
-Sie erschienen mir nicht besonders didaktisch wertvoll und können zur Not wieder manuell hinzugefügt werden.
+Ich habe mit Gnome Software sämtliche vorinstallierten Spiele entfernt und habe in Firefox ein paar vorgeschlagene Webseiten entfernt, bei denen es sich u.a. um Online-Shops handelte.
+Sie erschienen mir nicht besonders didaktisch wertvoll und können zur Not wieder manuell hinzugefügt werden, außerdem sparen die deinstallierten Spiele etwas Speicherplatz, wenn auch nicht viel.
 
 unter root:
  1. `su -` zu root wechseln
@@ -42,7 +43,8 @@ Für das Schulnetzwerk wird ein Proxy benötigt. Falls man sich im Schulnetzwerk
 In der "Einstellungen"-GUI, unter Netzwerk, unter Netzwerk-Proxy wählt man "Automatisch" als Methode aus und gibt dann die Konfigurationsadresse (welche man von einem anderen Schulrechner bekommen kann) ein.
 
 
-## Wine Installation
+## Wine
+### Installation
 Nach der Installation von dem Linux habe ich wine (übersetzt Windows API calls für POSIX-Systeme) installiert:
 
 wine ist in den debian paketquellen irre veraltet (1.8.7), siehe https://wiki.winehq.org/Debian.
@@ -64,9 +66,9 @@ am besten installiert man die stable (wine-stable) Version mit den vorgeschlagen
 Nun hat man die neuste wine Version und kann die gewünschten Programme in wine installieren
  
 
-## Microsoft Office installation:
-Um Office zu installieren musste ich den Ordner ~/.wine löschen (mit `rm -rf ~/.wine`), weil Office nur unter win32 in wine läuft.
-Mit einem 64bit wineprefix gibt es Probleme. (der wineprefix ist der ordner ~/.wine)
+## Microsoft Office
+### Installation:
+Weil Office nur unter win32 in wine läuft und es mit einem 64bit wineprefix Probleme gibt, muss man einen neuen wineprefix erstellen. (der wineprefix ist z.B. der Ordner ~/.wine)
 hierzu siehe:  
 https://appdb.winehq.org/objectManager.php?sClass=version&ild=4992 unter HOWTO, sowie
 https://wiki.winehq.org/FAQ#How_do_I_create_a_32_bit_wineprefix_on_a_64_bi_system.3F
