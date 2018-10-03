@@ -27,7 +27,7 @@ debug/errors von phymex:
 
 
 serial-port stuff:
-- installed setserial (im nachhinnein nicht nötig)
+- installed setserial (im nachhinnein nicht benötigt)
 - muss vlt. zu gruppen hinzugefügt werden
 - wine sollte in ~/.wine/dosdevices COM's und/oder LPT's erstellen (user muss erst in gruppe sein)
 
