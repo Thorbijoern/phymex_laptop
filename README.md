@@ -1,16 +1,20 @@
 # phymex_laptop
-In dieser Datei beschreibe ich die Schritte die ich zum aufsetzen eines Laptops vorgenommen habe.
+## Aufgabe / Zielsetzung
+In diesem Dokument beschreibe ich die Schritte die ich zum Aufsetzen eines Laptops vorgenommen habe.  
+Das Laptop soll dem Physik-Unterricht dienen und soll ein anderes Laptop mit Windows XP ersetzen.
+Dieses Laptop wird hauptsächlich in Verbindung mit PhyMex genutzt, eine Software die es ermöglicht 
 
 Als Basis dient die GNU/Linux Distribution Debian 9 alias "stretch".
 Die Hardware ist ein Fujitsu Esprimo Mobile D9510.
 
-Für die Installation wird eine Internetverbindung benötigt.
-## Aufgabe / Zielsetzung
-
-
-## Known Limitations/Problems
+## Ergebnis
+### Known Limitations/Problems
  - Der integrierte WLAN (und Bluetooth) Adapter benötigt nicht-freie Treiber, die ich nicht finden konnte.
  - Ich konnte leider das Problem in Phymex nicht lösen, bei dem im Vollbild-Modus eine graue Leiste am rechten Rand Steuerelemente überdeckt.
+
+
+### Erfolge
+ - Office 
 
 
 ## Vorbereitung
@@ -43,11 +47,14 @@ Für das Schulnetzwerk wird ein Proxy benötigt. Falls man sich im Schulnetzwerk
 In der "Einstellungen"-GUI, unter Netzwerk, unter Netzwerk-Proxy wählt man "Automatisch" als Methode aus und gibt dann die Konfigurationsadresse (welche man von einem anderen Schulrechner bekommen kann) ein.
 
 
+## Erster Test von Phymex
+
+
 ## Wine
 ### Installation
 Nach der Installation von dem Linux habe ich wine (übersetzt Windows API calls für POSIX-Systeme) installiert:
 
-wine ist in den debian paketquellen irre veraltet (1.8.7), siehe https://wiki.winehq.org/Debian.
+Wine ist in den Debian Paketquellen irre veraltet (1.8.7), siehe https://wiki.winehq.org/Debian, wie ich in meinem ersten Test herausgefunden habe.
  > die folgende installation ist nicht follständig dokumentiert, siehe https://wiki.winehq.org/Debian für eine bessere Anleitung.
 
     sudo dpkg --add-architecture i386
@@ -68,44 +75,51 @@ Nun hat man die neuste wine Version und kann die gewünschten Programme in wine 
 
 ## Microsoft Office
 ### Installation:
+Die im Folgenden beschriebenen Schritte wurde nur für Office 2007 getestet, für andere Office Versionen muss man andere Schritte durchführen.
+
+Damit Office vollständig funktioniert sollte man winbind (Teil von samba) zusätzlich installieren (mit `sudo apt install winbind`)
 Weil Office nur unter win32 in wine läuft und es mit einem 64bit wineprefix Probleme gibt, muss man einen neuen wineprefix erstellen. (der wineprefix ist z.B. der Ordner ~/.wine)
 hierzu siehe:  
-https://appdb.winehq.org/objectManager.php?sClass=version&ild=4992 unter HOWTO, sowie
+https://appdb.winehq.org/objectManager.php?sClass=version&iId=4992 unter HOWTO, sowie
 https://wiki.winehq.org/FAQ#How_do_I_create_a_32_bit_wineprefix_on_a_64_bi_system.3F
 
-Um das 32bit wineprefix zu erstellen führt man folgendes aus (nachdem der alte ~/.wine Ordner gelöscht wurde):
-`WINEARCH=win32 WINEPREFIX=~/.wine winecfg`
-Dies wird nun die wine Konfiguration sowie den wineprefix erstellen.
-Das Fenster, dass sich öffnet, kann man dann erstmal schließen
-Um nun Office zu installieren geht man in das Verzeichnis mit den Installationsdateien und führt 'wine setup.exe' aus.
-Man folg nun einfach dem Installer wie auch auf Windows.
-Die Programme sind nun unter `"~/.wine/drive_c/Program Files (x86)/Microsoft Office/Office12/"` als WINWORD.exe, EXCEL.exe und POWERPNT.exe installiert und könnten mit wineconsole ausgeführt werden.
-Nach der Installation von Office kann Phymex installiert werden.
+Um das 32bit wineprefix zu erstellen führt man folgendes aus:
+`WINEARCH=win32 WINEPREFIX=~/.wine_office winecfg`
+Dies wird nun den neuen wineprefix für Office mit einer Konfiguraion erstellen.
+In dem Fenster (winecfg, "Wine-Konfiguration"), welches sich öffnet, wählt man nun in der Liste im "Anwendungen"-Register die Standardeinstellungen aus und setzt die Windows-Version auf Windows XP.
+
+Da wir nun einen neuen wineprefix erstellt haben, muss dieser jedes mal angegeben werden, wenn man diesen oder in ihm installiere Programme nutzen möchte.  
+Mehr informationen zu wineprefix findet man hier:  
+https://wiki.winehq.org/Wine_User%27s_Guide#WINEPREFIX  
+https://wiki.winehq.org/FAQ#Wineprefixes
+
+Am besten installiert man Office mit dem Service Pack 2.
+Um nun Office zu installieren geht man in das Verzeichnis mit den Installationsdateien und führt `WINEPREFIX=~/.wine_office wine setup.exe` aus oder gibt den kompletten Pfad an, z.B. `WINEPREFIX=~/.wine_office wine /media/phybox/USB-STICK/Office2007/SETUP.EXE`
+Man folgt nun einfach dem Installer wie auch auf Windows.
+Um das Service Pack zu installieren geht man ähnlich vor. Man führt den Installer mit wine aus, z.B. `WINEPREFIX=~/.wine_office wine /media/phybox/USB-STICK/Office2007_SP2/office2007sp2-kb953195-fullfile-de-de.exe`, und folgt diesem.
+
+Nachdem beides installiert ist muss man nun winecfg (mit `WINEPREFIX=~/.wine_office winecfg`) erneut starten. In dem Register "Bibliotheken" fügt man eine neue Überschreibung für riched20 hinzu. Man tippt `riched20` in das Feld "Neue Überscheibung für:" ein bzw. wählt es aus und klickt "Hinzufügen". Es sollte nun `riched20 (Native, Buildin)` in der Liste stehen, ist dies nicht der Fall wählt man riched20 aus, klickt auf "Bearbeiten" und stellt sicher, dass "Native dann Buildin" ausgewählt ist.
+Diese Überschreibung Konfiguriert wine so, dass Office seine eigene riched20.dll nutzen kann.
+
+Die Programme sind nun unter `"~/.wine_office/drive_c/Program Files (x86)/Microsoft Office/Office12/"` als WINWORD.exe, EXCEL.exe und POWERPNT.exe installiert und könnten mit wine, wineconsole oder wine start ausgeführt werden (man muss den wineprefix angeben).
 
 ### Tests:
-Kurze Tests haben ergeben, dass Excel und Word scheinbar ziemlich problemlos laufen, aber Powerpoint startet leider nicht.
-
 Mit `wine winemenubuilder` lassen sich Einträge in das gnome application menu erstellen.
 
 Während der Tests habe ich auch je eine Word und Excel Datei erstellt und in den Dateieigenschaften eingestellt, diese standartmäßig mit dem jeweiligen Office-Program zu öffnen.
 
 
-## Phymex Installation
+## Phymex
+### Installation
 PhyMex (die Software für die PhyBox) kann bei der Uni-Bayreut ([link](http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/0_download/phybox.zip)) runter geladen werden bzw. von einer CD genommen werden.
 Wenn man die Dateien als Zip von der Uni-Bayreut heruntergeladen hat entpackt man sie am bestem mit `unzip phybox.zip`.
-Man wechselt mit cd in das verzeichnis mit den installationsdateien (z.B. "cd ~/Downloads/phybox").
-Im Terminal:
 
-    wine Phymex_Setup.exe
-
-Dies wird das setup-programm für Phymex starten.
+PhyMex funktioniert einfach so unter wine und hat keine besonderen Anforderungen, es kann daher in den standart wineprefix installiert werden.
+Man wechselt mit cd in das Verzeichnis mit den Installationsdateien (z.B. "cd ~/Downloads/phybox") und führt `wine Phymex_Setup.exe` aus. Dies wird das setup-programm für Phymex starten.
 Wenn das Setup-Programm gestartet ist folgt man einfach dem Prozess und benutzt die Standarteinstellungen.
 Das am Ende noch offene kleine Fenster (Entpacker) kann man einfach schließen.
-
 Fehler die wine im Terminal ausgegeben hat kann man einfach ignorieren.  
-nun um PhyMex zu starten:
-
-    wine ~/.wine/drive_c/PHYMEX/PHYMEX1.EXE
+Phymex kann man nun mit `wine ~/.wine/drive_c/PHYMEX/PHYMEX1.EXE`
 
 
 ### Phymex wine Einstellungen / Weitere Einstellungen für Phymex
@@ -143,3 +157,10 @@ Obere Leiste
  - Uhr
     - :ballot_box_with_check: Datum zeigen
     - :black_square_button: Sekunden zeigen
+
+
+### Nachbereitungen
+Mit `sudo apt autoremove` überflüssig gewordene Programme deinstallieren
+
+## Weitere Ideen
+ - man könnte versuchen PhyMex, sowie die PhyBox und die Seriell gesendeten Daten zu reverse-engineeren (serielle Daten aufnehmen/mitschneiden) und eine Open-Source/Open-Hardware PhyBox entwerfen, sowie ein platform-unabhängiges Open-Source Programm wie PhyMex schreiben.
