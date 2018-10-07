@@ -79,9 +79,11 @@ Danach führt man am besten erst mal `apt update && apt upgrade -y` aus, was die
 Mit `apt install sudo` installier man nun sudo um später nicht immer root nehmen zu müssen.
 Mit`usermod -aG sudo,dialout phybox` (oder anderen Befehlen) fügt man den User phybox zu den Gruppen sudo und dialout hinzu. 
 Der User phybox benötigt die Gruppe sudo um den Befehl sudo nutzen zu dürfen und dialout ermöglicht es dem User vollen und direkten Zugriff auf die Seriellen Ports zu haben, siehe https://wiki.debian.org/SystemGroups.
+ > wine benötigt später die Gruppe dialout um Zugriff auf die Seriellen Ports zu bekommen, sodass PhyMex funktioniert.
 Überprüfen kann man das nun mit `groups phybox` (sudo und dialout müssen mit aufgelistet sein).
 Mit `exit` kann man root wieder verlassen.
 Man muss sich nun mit phybox aus- und wieder einloggen bzw. den Computer neu starten damit die Gruppen-Änderungen übernommen werden.
+Nachdem die Spiele entfernt wurden kann man auch noch `sudo apt autoremove` ausführen um nicht mehr benötigte Pakete zu entfernen.
 
 Für das Schulnetzwerk wird ein Proxy benötigt. Falls man sich im Schulnetzwerk befindet oder man die Installation abgeschlossen hat wird im folgenden beschrieben, was man setzen muss:  
 In der "Einstellungen"-GUI, unter Netzwerk, unter Netzwerk-Proxy wählt man "Automatisch" als Methode aus und gibt dann die Konfigurationsadresse (welche man von einem anderen Schulrechner bekommen kann) ein.
@@ -92,37 +94,45 @@ In diesem Kapitel beschreibe ich den ersten Test, den ich mit dem Laptop, wine u
 Dieses Kapitel ist ziemlich unabhängig von den anderen, da ich nach diesen Tests vieles verändert hatte und sogar den Laptop komplett neu aufgesetzt hatte.
 Wenn man das Laptop neu aufsetzen möchte kann man dieses Kapitel getrost ignorieren.
 
-Wine hatte ich vorerst nur über die Debian Paketquellen installiert was sich dann nach einigen Tests als Problem raus stellte, da es 
+Wine hatte ich vorerst nur über die Debian Paketquellen installiert was sich dann nach einigen Tests als Problem rausstellte, da es in den Debian Paketquellen sehr veraltet war. Die letzte Version verfügbar in den Debian Paketquellen war 1.8.7, aber die aktuelle stabile Version (beim Zeitpunkt des Schreibens/Testens) war wine 3.0.3.
 
 
 ## Wine
 ### Installation
 Nach der Installation von dem Linux habe ich wine (übersetzt Windows API calls für POSIX-Systeme) installiert:
 
-Wine ist in den Debian Paketquellen irre veraltet (1.8.7), siehe https://wiki.winehq.org/Debian, wie ich in meinem ersten Test herausgefunden habe.
- > die folgende installation ist nicht follständig dokumentiert, siehe https://wiki.winehq.org/Debian für eine bessere Anleitung.
+Wine ist in den Debian Paketquellen irre veraltet, wie ich in meinem ersten Test herausgefunden habe.
+Auf https://wiki.winehq.org/Debian ist eine vollständige Anleitung (Englisch) zum installieren von wine auf Debian.
+Hier nur eine kurze Anleitung mit den Schritten, die ich unternahm:
 
-    sudo dpkg --add-architecture i386
-Deswegen erstellte ich eine wine.list.
-Vor dem apt update muss folgendes installiert werden:
-`sudo apt install apt-transport-https`
+`sudo dpkg --add-architecture i386` um 32 bit Pakete zu erlauben  
+den Key, der benutzt wird um die Pakete zu signieren runterladen `wget -nc https://dl.winehq.org/wine-builds/Release.key` und hinzufügen `sudo apt-key add Release.key`  
+eine wine.list erstellen `sudo nano /etc/apt/sources.list.d/wine.list` und in diese `deb https://dl.winehq.org/wine-builds/debian/ stretch main` schreiben  
+ > `stretch` gilt nur für Debian 9.x, da diese Verion den Alias "stretch" hat, für andere Versionen kann man den Alias in der Einstellungen-GUI unter Details in Klammern bei "Basissystem" finden.
+Vor dem apt update muss das Paket apt-transport-https installiert werden: `sudo apt install apt-transport-https`
 Nun kann man `sudo apt update` ausführen.
 falls man noch altes wine installiert hat sollte man folgendes ausführen:
- 1. `sudo apt remove wine` alte wine version entfernen
- 2. `sudo apt autoremove` unbenötigte dependencies entwfernen
- > apt ist neuer und simpler als apt get
+ 1. `sudo apt remove wine` alte wine Version entfernen
+ 2. `sudo apt autoremove` unbenötigte Pakete entfernen
+ > apt ist neuer und simpler als apt-get und wurde deswegen hier genutzt.
 
-am besten installiert man die stable (wine-stable) Version mit den vorgeschlagenen Paketen (--install-recommends)
+Am besten installiert man die stable (winehq-stable) Version mit den vorgeschlagenen Paketen (--install-recommends):
 
-    sudo apt install wine-stable --install-recommends
-Nun hat man die neuste wine Version und kann die gewünschten Programme in wine installieren
- 
+    sudo apt install --install-recommends winehq-stable
+Nun hat man die neuste, stabile wine Version und kann die gewünschten Programme in wine installieren.
+
+Für Office (und andere wine-Funktionen) sollte man noch winbind (Teil von samba) mit `sudo apt install winbind` installieren.
+
+Zum Schluss sollte man noch einen normalen wineprefix mit `winecfg` erstellen. Wenn man winecfg ausführt wird ein neues Verzeichnis ~/.wine erstellt und darin die Konfiguration gespeichert.
+winecfg wird wahrscheinlich danach fragen, ob man wine-mono und wine-gecko installieren möhcte (falls diese noch nicht installiert sind) und man sollte sie installieren.
+Das Fenster "Wine-Konfiguration kann man dann erstmal schließen.
+
 
 ## Microsoft Office
 ### Installation:
 Die im Folgenden beschriebenen Schritte wurde nur für Office 2007 getestet, für andere Office Versionen muss man andere Schritte durchführen.
 
-Damit Office vollständig funktioniert sollte man winbind (Teil von samba) zusätzlich installieren (mit `sudo apt install winbind`)
+Damit Office vollständig funktioniert sollte man winbind (Teil von samba) zusätzlich installiert haben (wurde schon bei der wine Installation gemacht).
 Weil Office nur unter win32 in wine läuft und es mit einem 64bit wineprefix Probleme gibt, muss man einen neuen wineprefix erstellen. (der wineprefix ist z.B. der Ordner ~/.wine)
 hierzu siehe:  
 https://appdb.winehq.org/objectManager.php?sClass=version&iId=4992 unter HOWTO, sowie
@@ -157,20 +167,21 @@ Während der Tests habe ich auch je eine Word und Excel Datei erstellt und in de
 ## Phymex
 ### Installation
 PhyMex (die Software für die PhyBox) kann bei der Uni-Bayreut ([link](http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/0_download/phybox.zip)) runter geladen werden bzw. von einer CD genommen werden.
-Wenn man die Dateien als Zip von der Uni-Bayreut heruntergeladen hat entpackt man sie am bestem mit `unzip phybox.zip`.
+Wenn man die Dateien als Zip von der Uni-Bayreut heruntergeladen hat entpackt man sie im Terminal mit `unzip phybox.zip` oder im Datei-Browser mit Rechtsklick und Klick auf "Hier entpacken".
 
-PhyMex funktioniert einfach so unter wine und hat keine besonderen Anforderungen, es kann daher in den standart wineprefix installiert werden.
+PhyMex funktioniert einfach so unter wine und hat keine besonderen Anforderungen, es kann daher in den standard wineprefix installiert werden. Das Verzeichnis bzw.der wineprefix ~/.wine sollte schon bestehen.
 Man wechselt mit cd in das Verzeichnis mit den Installationsdateien (z.B. "cd ~/Downloads/phybox") und führt `wine Phymex_Setup.exe` aus. Dies wird das setup-programm für Phymex starten.
-Wenn das Setup-Programm gestartet ist folgt man einfach dem Prozess und benutzt die Standarteinstellungen.
+Wenn das Setup-Programm gestartet ist folgt man einfach dem Prozess.
+Ich habe Deutsch als Sprache gewählt und den Standard Installationspfad genutzt.
 Das am Ende noch offene kleine Fenster (Entpacker) kann man einfach schließen.
 Fehler die wine im Terminal ausgegeben hat kann man einfach ignorieren.  
-Phymex kann man nun mit `wine ~/.wine/drive_c/PHYMEX/PHYMEX1.EXE`
+Phymex kann man nun mit `wine ~/.wine/drive_c/PHYMEX/PHYMEX1.EXE` starten.
 
 
 ### Phymex wine Einstellungen
 Nach dem Reinstall in dem win32 wineprefix habe ich versucht ob das Hinzufügen der Phymex Executables (unter "~/.wine/drive_c/PHYMEX") und das setzten von anderen Windows Versionen für diese (Standart auf Windows 7 gelassen, hatte Windows 2000, 98 und 95 für Phymex) einen Unterschied bezüglich des grauen Bandes macht, was sich bei Vollbild über die Steuerelemente auf der rechten Seite schiebt, aber leider hatte das nicht funktioniert und ich habe sie wieder entfernt (der Standart wird wieder genutzt).
 
-> versuchen für phymex in winecfg einen virtuellen desktop zu setzen
+Was jedoch funktioniert hat war im Grafik-Register von winecfg den virtuellen Bildschirm aktivieren und die Desktop-Größe auf 1339 x 836 zu setzen. Die Desktop-Größe habe ich durch Versuche herausgefunden und funktionieren am besten mit PhyMex und der Auflösung von dem Laptop. Die Fenster-Leiste oben bekommt man leider durch deaktivieren der Optionen "Erlaube dem Fenstermanager die Fenster zu dekorieren" bzw. "Erlaube dem Fenstermanager die Fenster zu kontrollieren" nicht weg.
 
 
 ## Weitere Einstellungen
