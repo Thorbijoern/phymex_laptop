@@ -79,7 +79,9 @@ Danach führt man am besten erst mal `apt update && apt upgrade -y` aus, was die
 Mit `apt install sudo` installier man nun sudo um später nicht immer root nehmen zu müssen.
 Mit`usermod -aG sudo,dialout phybox` (oder anderen Befehlen) fügt man den User phybox zu den Gruppen sudo und dialout hinzu. 
 Der User phybox benötigt die Gruppe sudo um den Befehl sudo nutzen zu dürfen und dialout ermöglicht es dem User vollen und direkten Zugriff auf die Seriellen Ports zu haben, siehe https://wiki.debian.org/SystemGroups.
- > wine benötigt später die Gruppe dialout um Zugriff auf die Seriellen Ports zu bekommen, sodass PhyMex funktioniert.
+ > wine benötigt später die Gruppe dialout um Zugriff auf die Seriellen Ports zu bekommen, sodass PhyMex funktioniert.  
+ > Mehr zu Seriellen Ports mit wine: https://wiki.winehq.org/Wine_User%27s_Guide#Serial_and_Parallel_Ports
+
 Überprüfen kann man das nun mit `groups phybox` (sudo und dialout müssen mit aufgelistet sein).
 Mit `exit` kann man root wieder verlassen.
 Man muss sich nun mit phybox aus- und wieder einloggen bzw. den Computer neu starten damit die Gruppen-Änderungen übernommen werden.
