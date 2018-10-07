@@ -64,31 +64,35 @@ Softwareauswahl (tasksel)
  - Standard-Systemwerkzeuge
 
 ausgewählte Software wird installiert...
-
-Sprache, Tastatur: Deutsch-Deutschland  
-Zeitzohne: Mitteleuropa/GMT (UTC+1:00), Berlin  
-installierte Standartpakete  
-Name neuer Nutzer: phybox
+GRUB
+ - GRUB-Bootloader in den MBR installieren: Ja
+ - Festplatte auswählen
 
 
 ### Nach der Linux Installation
-Ich habe mit Gnome Software sämtliche vorinstallierten Spiele entfernt und habe in Firefox ein paar vorgeschlagene Webseiten entfernt, bei denen es sich u.a. um Online-Shops handelte.
+Ich habe mit Gnome Software sämtliche vorinstallierten Spiele entfernt und habe in Firefox ein paar vorgeschlagene Webseiten ("wichtige Seiten" im neuen Tab) entfernt, bei denen es sich u.a. um Online-Shops handelte.
 Sie erschienen mir nicht besonders didaktisch wertvoll und können zur Not wieder manuell hinzugefügt werden, außerdem sparen die deinstallierten Spiele etwas Speicherplatz, wenn auch nicht viel.
 
-unter root:
- 1. `su -` zu root wechseln
- 2. `apt update && apt upgrade` Paket Datenbank aktualisieren und Paket-Updates installieren
- 3. `apt install vim sudo`      vim und sudo installieren
- 4. `usermod -aG sudo phybox`   User phybox zur sudo Gruppe hinzufügen
- 5. überprüfen mit `groups phybox` (sudo muss mit aufgelistet sein)
- 6. `exit` root verlassen
- 7. mit phybox aus- und wieder einloggen bzw. reboot zum Übernehmen der Gruppen-Änderungen
+Terminal öffnen
+Zuerst muss man mit `su -` zu root wechseln.
+Danach führt man am besten erst mal `apt update && apt upgrade -y` aus, was die Paket Datenbank aktualisiert und Paket-Updates installiert.
+Mit `apt install sudo` installier man nun sudo um später nicht immer root nehmen zu müssen.
+Mit`usermod -aG sudo,dialout phybox` (oder anderen Befehlen) fügt man den User phybox zu den Gruppen sudo und dialout hinzu. 
+Der User phybox benötigt die Gruppe sudo um den Befehl sudo nutzen zu dürfen und dialout ermöglicht es dem User vollen und direkten Zugriff auf die Seriellen Ports zu haben, siehe https://wiki.debian.org/SystemGroups.
+Überprüfen kann man das nun mit `groups phybox` (sudo und dialout müssen mit aufgelistet sein).
+Mit `exit` kann man root wieder verlassen.
+Man muss sich nun mit phybox aus- und wieder einloggen bzw. den Computer neu starten damit die Gruppen-Änderungen übernommen werden.
 
 Für das Schulnetzwerk wird ein Proxy benötigt. Falls man sich im Schulnetzwerk befindet oder man die Installation abgeschlossen hat wird im folgenden beschrieben, was man setzen muss:  
 In der "Einstellungen"-GUI, unter Netzwerk, unter Netzwerk-Proxy wählt man "Automatisch" als Methode aus und gibt dann die Konfigurationsadresse (welche man von einem anderen Schulrechner bekommen kann) ein.
 
 
 ## Erster Test von Phymex
+In diesem Kapitel beschreibe ich den ersten Test, den ich mit dem Laptop, wine und PhyMex unternommen hatte.
+Dieses Kapitel ist ziemlich unabhängig von den anderen, da ich nach diesen Tests vieles verändert hatte und sogar den Laptop komplett neu aufgesetzt hatte.
+Wenn man das Laptop neu aufsetzen möchte kann man dieses Kapitel getrost ignorieren.
+
+Wine hatte ich vorerst nur über die Debian Paketquellen installiert was sich dann nach einigen Tests als Problem raus stellte, da es 
 
 
 ## Wine
@@ -163,12 +167,10 @@ Fehler die wine im Terminal ausgegeben hat kann man einfach ignorieren.
 Phymex kann man nun mit `wine ~/.wine/drive_c/PHYMEX/PHYMEX1.EXE`
 
 
-### Phymex wine Einstellungen / Weitere Einstellungen für Phymex
-Der User phybox benötigt die Gruppen sys und dialout, der folgende Befehl fügt den User zu den Gruppen hinzu:  
-`usermod -a -G sys,dialout phybox`
-> schauen was gruppen (sys, dialout) machen/für rechte haben
+### Phymex wine Einstellungen
+Nach dem Reinstall in dem win32 wineprefix habe ich versucht ob das Hinzufügen der Phymex Executables (unter "~/.wine/drive_c/PHYMEX") und das setzten von anderen Windows Versionen für diese (Standart auf Windows 7 gelassen, hatte Windows 2000, 98 und 95 für Phymex) einen Unterschied bezüglich des grauen Bandes macht, was sich bei Vollbild über die Steuerelemente auf der rechten Seite schiebt, aber leider hatte das nicht funktioniert und ich habe sie wieder entfernt (der Standart wird wieder genutzt).
 
-Nach dem reinstall in dem win32 wineprefix habe ich versucht ob das Hinzufügen der Phymex Executables (unter "....PHYMEX") und das setzten von anderen Windows Versionen für diese (Standart auf Windows 7 gelassen, hatte Windows 2000, 98 und 95 für Phymex) einen Unterschied bezüglich des grauen Bandes macht, was sich bei Vollbild über die Steuerelemente auf der rechten Seite schiebt, aber leider hatte das nicht funktioniert und ich habe sie wieder entfernt (der Standart wird wieder genutzt).
+> versuchen für phymex in winecfg einen virtuellen desktop zu setzen
 
 
 ## Weitere Einstellungen
@@ -177,6 +179,9 @@ Einstellungen in der "Einstellungen"-GUI:
 Maus und Tastfeld:
  - Tastfeld
     - Bildlauf am Rand: An
+Hintergrund:
+ - anderen Hintergrund und Sperrbildschirm auswählen
+
 ### Gnome-Tweaks Einstellungen
 Gnome-Tweaks oder "Optimierungswerkzeug" ist eine kleine GUI Anwendung um Einstellungen der Gnome Desktop-Environment anzupassen.
 Ich habe folgende Einstellungen vorgenommen:
