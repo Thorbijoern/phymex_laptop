@@ -14,7 +14,8 @@ Die Hardware ist ein Fujitsu Esprimo Mobile D9510.
 
 
 ### Erfolge
- - Office 
+ - Office läuft
+ - Phymex läuft
 
 
 ## Vorbereitung
@@ -24,6 +25,46 @@ Ich habe geschaut ob noch Dateien oder andere wichtige Sachen darauf sind, aber 
 
 ## Linux
 ### Installation
+Graphical Install  
+Sprache: German - Deutsch  
+Standort: Deutschland  
+Tastatur: Deutsch  
+Rechnername (Hostname): phybox-laptop  
+Domainname:
+
+root Nutzer
+ 1. Passwort wählen und wiederholen
+
+neuer Nutzer
+ 1. vollständiger Name: phybox
+ 2. Benutzername: phybox
+ 3. Passwort wählen und wiederholen
+
+Festplatte partitionieren
+ 1. "Geführt - vollständige Festplatte verwenden"
+ 2. Festplatte auswählen
+ 3. alle Dateien auf eine Partition
+ 4. Partitionierung beenden und Änderungen übernehmen
+ 5. ja, Festplatte Partitionieren
+
+Grundsystem wird installiert...  
+andere CD/DVD einlesen: Nein
+
+APT konfigurieren
+ 1. Land des Spiegelservers: Deutschland
+ 2. Spiegelserver: debian.inf.tu-dresden.de
+ 3. kein Proxyserver (im Schulnetzwerk benötigt  man einen)
+
+weitere Software wird installiert...  
+nicht an Paketverwendungserfassung teilnehmen
+
+Softwareauswahl (tasksel)
+ - Debian desktop environment
+ - Druckserver
+ - Standard-Systemwerkzeuge
+
+ausgewählte Software wird installiert...
+
 Sprache, Tastatur: Deutsch-Deutschland  
 Zeitzohne: Mitteleuropa/GMT (UTC+1:00), Berlin  
 installierte Standartpakete  
