@@ -10,10 +10,10 @@
     - zeit die ich dran gearbeitet habe
     - 
  - suche in firefox vlt. wieder ändern
- - schauen was gruppen (sys, dialout) machen/für rechte haben
  - unterschied Phymex1.exe und Phymexma.exe
     - anschauen Verknüpfung
     - Verknüpfung von Windows in wine kopieren > winemenubuilder
+       - verknüpfungen allein funktionieren wohl nicht
  - classpad manager installieren?
  - vlt. kann ich wine noch vorschreiben phymex nicht im vollbild zu starten, sondern etwas kleiner weil sich diese fläche ja über die register schiebt.
     - virtual desktop mit phymex testen
@@ -21,6 +21,10 @@
  - Shortcuts/Verknüpfungen für PhyMex, Office und andere oft verwendete programme (firefox)
  - windows shortcuts
  - remove dublicate "open with"-menu entries caused by `wine winemenubuilder`
+    - einfach laptop neu aufsetzen
+ - firefox daten löschen
+ - firefox bookmarks
+ - 
 
 
 classpad manager:
