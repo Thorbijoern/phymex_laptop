@@ -1,11 +1,12 @@
 # phymex_laptop
 ## Aufgabe / Zielsetzung
-In diesem Dokument beschreibe ich die Schritte die ich zum Aufsetzen eines Laptops vorgenommen habe.  
-Das Laptop soll dem Physik-Unterricht dienen und soll ein anderes Laptop mit Windows XP ersetzen.
-Dieses Laptop wird hauptsächlich in Verbindung mit PhyMex genutzt, eine Software die es ermöglicht 
+In diesem Dokument beschreibe ich die Schritte, die ich zum Aufsetzen eines Laptops vorgenommen habe.  
+Das Laptop soll dem Physik-Unterricht dienen und soll ein anderes Laptop mit Windows XP ersetzen.  
+Dieses Laptop wird hauptsächlich in Verbindung mit Phymex genutzt. Dies ist eine Software die es ermöglicht, mit Hilfe der zugehörigen Phybox, Messdaten von z.B. Experimenten aufzunehmen und diese grafisch darzustellen. Die Datenübertragung zwischen Phymex, bzw. dem Computer auf dem Phymex läuft, und der Phybox geschieht durch eine serielle Schnittstelle, in diesem Fall eine RS-232 Schnittstelle über einen 9-poligen D-Sub COM-Port an dem Laptop.  
+Weitere Informationen kann man dem folgenden von der Uni-Bayreuth veröffentlichten Dokument entnehmen:
+http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/0_download/phybox.pdf
 
-Als Basis dient die GNU/Linux Distribution Debian 9 alias "stretch".
-Die Hardware ist ein Fujitsu Esprimo Mobile D9510.
+Als Hardware stand ein Fujitsu Esprimo Mobile D9510 zur Verfügung und die Basis bildet die GNU/Linux Distribution Debian 9 alias "stretch".
 
 ## Ergebnis
 ### Known Limitations/Problems
@@ -16,6 +17,20 @@ Die Hardware ist ein Fujitsu Esprimo Mobile D9510.
 ### Erfolge
  - Office läuft
  - Phymex läuft
+
+
+## Evaluation von Phymex auf Linux
+In diesem Kapitel beschreibe ich die Evaluation, die ich mit dem Laptop, wine und Phymex unternommen hatte. Diese Evaluation war nur ein erster Test um sicher zu gehen, dass die Nutzung von Phymex auf Linux auch wirklich möglich ist.
+Dieses Kapitel ist ziemlich unabhängig von den anderen, da ich nach der Evaluation einiges verändert und sogar den Laptop komplett neu aufgesetzt hatte.
+Wenn man das Laptop neu aufsetzen möchte kann man dieses Kapitel getrost ignorieren.
+
+Die Linux Installation hatte ich ähnlich vorgenommen wie in folgenden Kapiteln beschrieben.
+
+Aufgefallen war mir der Versionsunterschied als ich Nachforschungen angestellt habe, warum Wine nicht unter ~/.wine/dosdevices die verschiedenen seriellen Geräte anlegt. Ich hatte, einer Antwort im Internet folgend, das kleine Tool setserial installiert, was mir aber nicht half und somit im nachhinein überflüssig ist. Eines der Probleme war, dass der Benutzer, unter dem wine gestartet wird, also der, der es startet, muss die Berechtigungen erhalten um auf die seriellen Schnittstellen zugreifen zu können. Das Berechtigungskonzept von Linux löst das mit verschiedenen Gruppen, darunter die Gruppen sys und dialout. Ich habe den Benutzer beiden Gruppen hinzugefügt, aber sys wird nicht benötigt. Das zweite Problem bestand darin, dass ältere Versionen von Wine die seriellen Geräte nicht automatisch anlegten, dadurch bemerkte ich, dass ich eine alte Version von Wine nutzte.
+Wine hatte ich vorerst nur über die Debian Paketquellen installiert was sich dann nach einigen Tests als Problem rausstellte, da es in den Debian Paketquellen sehr veraltet war. Die letzte Version verfügbar in den Debian Paketquellen war 1.8.7, aber die aktuelle stabile Version (zum Zeitpunkt des Schreibens/Testens) war Wine 3.0.3.
+Ich hatte dann die aktuelle Version installiert.
+
+Nachdem ich die aktuelle Version von Wine nutzte und den Benutzer zu den Gruppen hinzugefügt hatte, hatte ich zusammen mit meinem Lehrer Phymex auf wine mit der Phybox erfolgreich getestet.
 
 
 ## Vorbereitung
@@ -77,9 +92,9 @@ Terminal öffnen
 Zuerst muss man mit `su -` zu root wechseln.
 Danach führt man am besten erst mal `apt update && apt upgrade -y` aus, was die Paket Datenbank aktualisiert und Paket-Updates installiert.
 Mit `apt install sudo` installier man nun sudo um später nicht immer root nehmen zu müssen.
-Mit`usermod -aG sudo,dialout phybox` (oder anderen Befehlen) fügt man den User phybox zu den Gruppen sudo und dialout hinzu. 
+Mit`usermod -aG sudo,dialout phybox` fügt man den User phybox zu den Gruppen sudo und dialout hinzu. 
 Der User phybox benötigt die Gruppe sudo um den Befehl sudo nutzen zu dürfen und dialout ermöglicht es dem User vollen und direkten Zugriff auf die Seriellen Ports zu haben, siehe https://wiki.debian.org/SystemGroups.
- > wine benötigt später die Gruppe dialout um Zugriff auf die Seriellen Ports zu bekommen, sodass PhyMex funktioniert.  
+ > wine benötigt später die Gruppe dialout um Zugriff auf die Seriellen Ports zu bekommen, sodass Phymex funktioniert.  
  > Mehr zu Seriellen Ports mit wine: https://wiki.winehq.org/Wine_User%27s_Guide#Serial_and_Parallel_Ports
 
 Überprüfen kann man das nun mit `groups phybox` (sudo und dialout müssen mit aufgelistet sein).
@@ -89,14 +104,6 @@ Nachdem die Spiele entfernt wurden kann man auch noch `sudo apt autoremove` ausf
 
 Für das Schulnetzwerk wird ein Proxy benötigt. Falls man sich im Schulnetzwerk befindet oder man die Installation abgeschlossen hat wird im folgenden beschrieben, was man setzen muss:  
 In der "Einstellungen"-GUI, unter Netzwerk, unter Netzwerk-Proxy wählt man "Automatisch" als Methode aus und gibt dann die Konfigurationsadresse (welche man von einem anderen Schulrechner bekommen kann) ein.
-
-
-## Erster Test von Phymex
-In diesem Kapitel beschreibe ich den ersten Test, den ich mit dem Laptop, wine und PhyMex unternommen hatte.
-Dieses Kapitel ist ziemlich unabhängig von den anderen, da ich nach diesen Tests vieles verändert hatte und sogar den Laptop komplett neu aufgesetzt hatte.
-Wenn man das Laptop neu aufsetzen möchte kann man dieses Kapitel getrost ignorieren.
-
-Wine hatte ich vorerst nur über die Debian Paketquellen installiert was sich dann nach einigen Tests als Problem rausstellte, da es in den Debian Paketquellen sehr veraltet war. Die letzte Version verfügbar in den Debian Paketquellen war 1.8.7, aber die aktuelle stabile Version (beim Zeitpunkt des Schreibens/Testens) war wine 3.0.3.
 
 
 ## Wine
@@ -168,10 +175,10 @@ Während der Tests habe ich auch je eine Word und Excel Datei erstellt und in de
 
 ## Phymex
 ### Installation
-PhyMex (die Software für die PhyBox) kann bei der Uni-Bayreut ([link](http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/0_download/phybox.zip)) runter geladen werden bzw. von einer CD genommen werden.
-Wenn man die Dateien als Zip von der Uni-Bayreut heruntergeladen hat entpackt man sie im Terminal mit `unzip phybox.zip` oder im Datei-Browser mit Rechtsklick und Klick auf "Hier entpacken".
+Phymex (die Software für die Phybox) kann bei der Uni-Bayreuth ([link](http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/0_download/phybox.zip)) runter geladen werden bzw. von einer CD genommen werden.
+Wenn man die Dateien als Zip von der Uni-Bayreuth heruntergeladen hat entpackt man sie im Terminal mit `unzip phybox.zip` oder im Datei-Browser mit Rechtsklick und Klick auf "Hier entpacken".
 
-PhyMex funktioniert einfach so unter wine und hat keine besonderen Anforderungen, es kann daher in den standard wineprefix installiert werden. Das Verzeichnis bzw.der wineprefix ~/.wine sollte schon bestehen.
+Phymex funktioniert einfach so unter wine und hat keine besonderen Anforderungen, es kann daher in den standard wineprefix installiert werden. Das Verzeichnis bzw.der wineprefix ~/.wine sollte schon bestehen.
 Man wechselt mit cd in das Verzeichnis mit den Installationsdateien (z.B. "cd ~/Downloads/phybox") und führt `wine Phymex_Setup.exe` aus. Dies wird das setup-programm für Phymex starten.
 Wenn das Setup-Programm gestartet ist folgt man einfach dem Prozess.
 Ich habe Deutsch als Sprache gewählt und den Standard Installationspfad genutzt.
@@ -183,7 +190,7 @@ Phymex kann man nun mit `wine ~/.wine/drive_c/PHYMEX/PHYMEX1.EXE` starten.
 ### Phymex wine Einstellungen
 Nach dem Reinstall in dem win32 wineprefix habe ich versucht ob das Hinzufügen der Phymex Executables (unter "~/.wine/drive_c/PHYMEX") und das setzten von anderen Windows Versionen für diese (Standart auf Windows 7 gelassen, hatte Windows 2000, 98 und 95 für Phymex) einen Unterschied bezüglich des grauen Bandes macht, was sich bei Vollbild über die Steuerelemente auf der rechten Seite schiebt, aber leider hatte das nicht funktioniert und ich habe sie wieder entfernt (der Standart wird wieder genutzt).
 
-Was jedoch funktioniert hat war im Grafik-Register von winecfg den virtuellen Bildschirm aktivieren und die Desktop-Größe auf 1339 x 836 zu setzen. Die Desktop-Größe habe ich durch Versuche herausgefunden und funktionieren am besten mit PhyMex und der Auflösung von dem Laptop. Die Fenster-Leiste oben bekommt man leider durch deaktivieren der Optionen "Erlaube dem Fenstermanager die Fenster zu dekorieren" bzw. "Erlaube dem Fenstermanager die Fenster zu kontrollieren" nicht weg.
+Was jedoch funktioniert hat war im Grafik-Register von winecfg den virtuellen Bildschirm aktivieren und die Desktop-Größe auf 1339 x 836 zu setzen. Die Desktop-Größe habe ich durch Versuche herausgefunden und funktionieren am besten mit Phymex und der Auflösung von dem Laptop. Die Fenster-Leiste oben bekommt man leider durch deaktivieren der Optionen "Erlaube dem Fenstermanager die Fenster zu dekorieren" bzw. "Erlaube dem Fenstermanager die Fenster zu kontrollieren" nicht weg.
 
 
 ## Weitere Einstellungen
@@ -222,4 +229,7 @@ Obere Leiste
 Mit `sudo apt autoremove` überflüssig gewordene Programme deinstallieren
 
 ## Weitere Ideen
- - man könnte versuchen PhyMex, sowie die PhyBox und die Seriell gesendeten Daten zu reverse-engineeren (serielle Daten aufnehmen/mitschneiden) und eine Open-Source/Open-Hardware PhyBox entwerfen, sowie ein platform-unabhängiges Open-Source Programm wie PhyMex schreiben.
+ - man könnte versuchen Phymex, sowie die Phybox und die seriell gesendeten Daten zu reverse-engineeren (serielle Daten aufnehmen/mitschneiden) und eine Open-Source/Open-Hardware Phybox entwerfen, sowie ein platform-unabhängiges Open-Source Programm wie Phymex schreiben.
+
+## Weitere Informationen zu Phymex/Phybox
+Weitere Informationen findet man unter http://didaktikchemie.uni-bayreuth.de/de/teachers/05chembox/index.html bzw. http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/ und verschiedenen veröffentlichten Dokumenten unter http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/0_download/.
