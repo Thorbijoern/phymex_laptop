@@ -19,6 +19,11 @@ Als Hardware stand ein Fujitsu Esprimo Mobile D9510 zur Verfügung und die Basis
  - Phymex läuft
 
 
+## Vorbereitung
+Es war noch ein unaktiviertes (keine Lizens) Windows 7 auf dem Laptop zu Testzwecken oder so installiert.
+Ich habe geschaut ob noch Dateien oder andere wichtige Sachen darauf sind, aber habe nicht gefunden und fuhr mit der Installation fort.
+
+
 ## Evaluation von Phymex auf Linux
 In diesem Kapitel beschreibe ich die Evaluation, die ich mit dem Laptop, wine und Phymex unternommen hatte. Diese Evaluation war nur ein erster Test um sicher zu gehen, dass die Nutzung von Phymex auf Linux auch wirklich möglich ist.
 Dieses Kapitel ist ziemlich unabhängig von den anderen, da ich nach der Evaluation einiges verändert und sogar den Laptop komplett neu aufgesetzt hatte.
@@ -33,14 +38,11 @@ Ich hatte dann die aktuelle Version installiert.
 Nachdem ich die aktuelle Version von Wine nutzte und den Benutzer zu den Gruppen hinzugefügt hatte, hatte ich zusammen mit meinem Lehrer Phymex auf wine mit der Phybox erfolgreich getestet.
 
 
-## Vorbereitung
-Es war noch ein unaktiviertes (keine Lizens) Windows 7 auf dem Laptop zu Testzwecken oder so installiert.
-Ich habe geschaut ob noch Dateien oder andere wichtige Sachen darauf sind, aber habe nicht gefunden und fuhr mit der Installation fort.
-
-
 ## Linux
 ### Installation
-Graphical Install  
+Für die Installation hatte ich eine aktuelle Debian ISO (9.5.0 amd64 netinstall) von debian.org runter geladen und auf einen USB-Stick geflasht. Am Laptop habe ich dann von dem USB-Stick gestartet und die Installation mit Hilfe der grafischen Oberfläche (Graphical Install  ) gewählt.
+
+Folgend sind alle Einstallungen, die ich während der Installation vorgenommen habe:
 Sprache: German - Deutsch  
 Standort: Deutschland  
 Tastatur: Deutsch  
