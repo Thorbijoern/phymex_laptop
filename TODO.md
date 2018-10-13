@@ -9,6 +9,7 @@
     - Zielstellung, was funktioniert, was funktioniert nicht
     - zeit die ich dran gearbeitet habe
     - doku (vlt. in rst umschreiben?) mit sphynx convertieren
+    - Wine statt wine, Phymex statt PhyMex und Phybox statt PhyBox
     - 
  - suche in firefox vlt. wieder ändern
  - unterschied Phymex1.exe und Phymexma.exe
