@@ -60,7 +60,7 @@ Output:
     /dev/ttyS2, UART: unknown, Port: 0x03e8, IRQ: 4
     /dev/ttyS3, UART: unknown, Port: 0x02e8, IRQ: 3
 
-um von gruppe wieder zu entfernen müssen alle angegeben werden denen der user noch angehören soll:
+um von gruppe wieder zu entfernen müssen alle angegeben werden denen der user noch angehören soll (nicht ganz richtig; es gibt andere commands, bei denen es ):
 
     usermod -G phybox,cdrom,floppy,audio,dip,video,plugdev,netdev,bluetooth,lpadmin,scanner phybox
 sys hat nicht geklappt, nun dialout testen
