@@ -123,7 +123,7 @@ eine wine.list erstellen `sudo nano /etc/apt/sources.list.d/wine.list` und in di
 Vor dem apt update muss das Paket apt-transport-https installiert werden: `sudo apt install apt-transport-https`
 Nun kann man `sudo apt update` ausführen.
 falls man noch altes wine installiert hat sollte man folgendes ausführen:
- 1. `sudo apt remove wine` alte wine Version entfernen
+ 1. `sudo apt remove wine` alte wine Version entfernen (falls nötig)
  2. `sudo apt autoremove` unbenötigte Pakete entfernen
  > apt ist neuer und simpler als apt-get und wurde deswegen hier genutzt.
 
@@ -144,17 +144,17 @@ Das Fenster "Wine-Konfiguration kann man dann erstmal schließen.
 Die im Folgenden beschriebenen Schritte wurde nur für Office 2007 getestet, für andere Office Versionen muss man andere Schritte durchführen.
 
 Damit Office vollständig funktioniert sollte man winbind (Teil von samba) zusätzlich installiert haben (wurde schon bei der wine Installation gemacht).
-Weil Office nur unter win32 in wine läuft und es mit einem 64bit wineprefix Probleme gibt, muss man einen neuen wineprefix erstellen. (der wineprefix ist z.B. der Ordner ~/.wine)
-hierzu siehe:  
-https://appdb.winehq.org/objectManager.php?sClass=version&iId=4992 unter HOWTO, sowie
+Weil Office nur unter win32 in wine läuft, es also mit einem 64bit wineprefix Probleme gibt und um Probleme mit anderen Programmen zu vermeiden muss man einen neuen, separaten wineprefix erstellen. (der wineprefix ist z.B. der Ordner ~/.wine)  
+Hierzu siehe:  
+https://appdb.winehq.org/objectManager.php?sClass=version&iId=4992 unter HOWTO, sowie  
 https://wiki.winehq.org/FAQ#How_do_I_create_a_32_bit_wineprefix_on_a_64_bi_system.3F
 
-Um das 32bit wineprefix zu erstellen führt man folgendes aus:
+Um das 32bit wineprefix zu erstellen führt man folgendes aus:  
 `WINEARCH=win32 WINEPREFIX=~/.wine_office winecfg`
 Dies wird nun den neuen wineprefix für Office mit einer Konfiguraion erstellen.
 In dem Fenster (winecfg, "Wine-Konfiguration"), welches sich öffnet, wählt man nun in der Liste im "Anwendungen"-Register die Standardeinstellungen aus und setzt die Windows-Version auf Windows XP.
 
-Da wir nun einen neuen wineprefix erstellt haben, muss dieser jedes mal angegeben werden, wenn man diesen oder in ihm installiere Programme nutzen möchte.  
+Da wir nun einen neuen wineprefix erstellt haben, muss dieser jedes mal angegeben werden, wenn man diesen oder in ihm installierte Programme nutzen möchte.  
 Mehr informationen zu wineprefix findet man hier:  
 https://wiki.winehq.org/Wine_User%27s_Guide#WINEPREFIX  
 https://wiki.winehq.org/FAQ#Wineprefixes
@@ -164,8 +164,8 @@ Um nun Office zu installieren geht man in das Verzeichnis mit den Installationsd
 Man folgt nun einfach dem Installer wie auch auf Windows.
 Um das Service Pack zu installieren geht man ähnlich vor. Man führt den Installer mit wine aus, z.B. `WINEPREFIX=~/.wine_office wine /media/phybox/USB-STICK/Office2007_SP2/office2007sp2-kb953195-fullfile-de-de.exe`, und folgt diesem.
 
-Nachdem beides installiert ist muss man nun winecfg (mit `WINEPREFIX=~/.wine_office winecfg`) erneut starten. In dem Register "Bibliotheken" fügt man eine neue Überschreibung für riched20 hinzu. Man tippt `riched20` in das Feld "Neue Überscheibung für:" ein bzw. wählt es aus und klickt "Hinzufügen". Es sollte nun `riched20 (Native, Buildin)` in der Liste stehen, ist dies nicht der Fall wählt man riched20 aus, klickt auf "Bearbeiten" und stellt sicher, dass "Native dann Buildin" ausgewählt ist.
-Diese Überschreibung Konfiguriert wine so, dass Office seine eigene riched20.dll nutzen kann.
+Nachdem beides installiert ist muss man nun winecfg (mit `WINEPREFIX=~/.wine_office winecfg`) erneut starten. In dem Register "Bibliotheken" fügt man eine neue Überschreibung für riched20 hinzu. Man tippt `riched20` in das Feld "Neue Überscheibung für:" ein bzw. wählt es aus und klickt "Hinzufügen". Es sollte nun `riched20 (Native, Buildin)` in der Liste stehen. Ist dies nicht der Fall wählt man riched20 aus, klickt auf "Bearbeiten" und stellt sicher, dass "Native dann Buildin" ausgewählt ist.
+Diese Überschreibung konfiguriert wine so, dass Office seine eigene riched20.dll nutzen kann.
 
 Die Programme sind nun unter `"~/.wine_office/drive_c/Program Files (x86)/Microsoft Office/Office12/"` als WINWORD.exe, EXCEL.exe und POWERPNT.exe installiert und könnten mit wine, wineconsole oder wine start ausgeführt werden (man muss den wineprefix angeben).
 
@@ -180,11 +180,11 @@ Während der Tests habe ich auch je eine Word und Excel Datei erstellt und in de
 Phymex (die Software für die Phybox) kann bei der Uni-Bayreuth ([link](http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/0_download/phybox.zip)) runter geladen werden bzw. von einer CD genommen werden.
 Wenn man die Dateien als Zip von der Uni-Bayreuth heruntergeladen hat entpackt man sie im Terminal mit `unzip phybox.zip` oder im Datei-Browser mit Rechtsklick und Klick auf "Hier entpacken".
 
-Phymex funktioniert einfach so unter wine und hat keine besonderen Anforderungen, es kann daher in den standard wineprefix installiert werden. Das Verzeichnis bzw.der wineprefix ~/.wine sollte schon bestehen.
+Phymex funktioniert einfach so unter wine und hat keine besonderen Anforderungen, es kann daher in den standard wineprefix installiert werden. Wenn das Verzeichnis bzw.der wineprefix ~/.wine noch nicht besteht kann man einfach `winecfg`, ohne das setzen von Variablen, aufrufen.
 Man wechselt mit cd in das Verzeichnis mit den Installationsdateien (z.B. "cd ~/Downloads/phybox") und führt `wine Phymex_Setup.exe` aus. Dies wird das setup-programm für Phymex starten.
 Wenn das Setup-Programm gestartet ist folgt man einfach dem Prozess.
 Ich habe Deutsch als Sprache gewählt und den Standard Installationspfad genutzt.
-Das am Ende noch offene kleine Fenster (Entpacker) kann man einfach schließen.
+Das am Ende noch offene kleine Fenster (Entpacker) kann man einfach schließen, die Warnung die beim Schließen angezeigt wird kann ignoriert werden.
 Fehler die wine im Terminal ausgegeben hat kann man einfach ignorieren.  
 Phymex kann man nun mit `wine ~/.wine/drive_c/PHYMEX/PHYMEX1.EXE` starten.
 
