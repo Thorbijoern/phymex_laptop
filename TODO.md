@@ -27,7 +27,8 @@
  - firefox daten löschen
  - firefox bookmarks
  - icon für phymex
+ - "Diese Dokumentation wurde mit Sphinx generiert..."
 
 
 classpad manager:
- frau dr. opitz meinte es ist gefährlich unter linux, könnte classpad bricken?
+ mathelehrerin meinte es ist gefährlich unter linux, könnte classpad bricken?
