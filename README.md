@@ -1,4 +1,6 @@
 # phymex_laptop
+Diese Dokumentation ist unter der XXXXX Lizenz auf Github veröffentlicht: https://github.com/Thorbijoern/phymex_laptop
+
 ## Aufgabe / Zielsetzung
 In diesem Dokument beschreibe ich die Schritte, die ich zum Aufsetzen eines Laptops vorgenommen habe.  
 Das Laptop soll dem Physik-Unterricht dienen und soll ein anderes Laptop mit Windows XP ersetzen.  
@@ -170,9 +172,7 @@ Diese Überschreibung konfiguriert wine so, dass Office seine eigene riched20.dl
 Die Programme sind nun unter `"~/.wine_office/drive_c/Program Files (x86)/Microsoft Office/Office12/"` als WINWORD.exe, EXCEL.exe und POWERPNT.exe installiert und könnten mit wine, wineconsole oder wine start ausgeführt werden (man muss den wineprefix angeben).
 
 ### Tests:
-Mit `wine winemenubuilder` lassen sich Einträge in das gnome application menu erstellen.
-
-Während der Tests habe ich auch je eine Word und Excel Datei erstellt und in den Dateieigenschaften eingestellt, diese standartmäßig mit dem jeweiligen Office-Program zu öffnen.
+Während der Tests habe ich je eine Word, Excel und Powerpoint Datei erstellt und in den Dateieigenschaften von Debian/Gnome eingestellt, diese standartmäßig mit dem jeweiligen Office-Program zu öffnen.
 
 
 ## Phymex
@@ -196,6 +196,37 @@ Was jedoch funktioniert hat war im Grafik-Register von winecfg den virtuellen Bi
 
 
 ## Weitere Einstellungen
+### Desktop Einträge
+Mit dem in wine integrierten Tool `winemenubuilder` lassen sich Einträge in das Gnome Application Menu erstellen. Jedoch funktioniert dies nur automatisch für die Microsoft Office Programme, da diese von dem Installer in die Wine-/Windows-Registry eingetragen wurden. Für Phymex müssen manuell Einträge erstellt werden.
+
+Gnome folgt den Standarts von freedesktop.org (ehemals X Desktop Group, kurz XDG) und folgt für Desktop Einträge bzw. Einträge ins Appliction Menu der [Desktop Menu Specification](https://specifications.freedesktop.org/menu-spec/menu-spec-latest.html) und der [Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html).
+
+Um für Office Einträge anzulegen führt man `WINEPREFIX=~/.wine_office wine winemenubuilder` aus.
+
+Der Desktop Eintrag für Phymex würde wie folgt aussehen:
+
+    [DesktopEntry]
+    Type=Application
+    Version=1.1
+    Name=Phymex
+    Comment=Phybox/Phymex: Das universelle, PC-gesteuerte Meß- und Datenerfassungs-System
+    # Icon= ?
+    Exec=wine ~/.wine/drive_c/PHYMEX/PHYMEX1.EXE
+    Path=~/
+    # MimeType=application/octet-stream;application/x-php;
+    Categories=Education;Science;DataVisualization;Physics;
+    Keywords=Phybox;Physik;Experimente;
+
+Man kann dies als Phymex.desktop unter `/usr/share/applications/Phybox/Phymex.desktop` mit dem Texteditor nano anlegen.
+
+Den Comment habe ich aus dem deutschen Prospekt zu der Phybox entnommen, welcher von der Uni-Bayreuth veröffentlich wurde.  
+Ein Icon müsste aus der Exe-Datei extrahiert oder manuell gezeichnet werden.  
+Der MimeType kann aus den Eigenschaften von Phymex-Dateien gelesen werden, ist aber sehr mehrdeutig.  
+Die Categories wurden aus einer vordefinierten Liste in der Desktop Menu Specification gewählt.  
+Die Keywords wurden frei gewählt und sind haupsächlich dazu da, dass man das Programm in der Suche im Application Menu besser findet.
+
+Außerdem erhält Phymex ein eigenes Menü:
+
 ### Einstellungen
 Einstellungen in der "Einstellungen"-GUI:
 Maus und Tastfeld:
