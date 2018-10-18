@@ -154,22 +154,22 @@ https://wiki.winehq.org/FAQ#How_do_I_create_a_32_bit_wineprefix_on_a_64_bi_syste
 Um das 32bit wineprefix zu erstellen führt man folgendes aus:  
 `WINEARCH=win32 WINEPREFIX=~/.wine_office winecfg`
 Dies wird nun den neuen wineprefix für Office mit einer Konfiguraion erstellen.
-In dem Fenster (winecfg, "Wine-Konfiguration"), welches sich öffnet, wählt man nun in der Liste im "Anwendungen"-Register die Standardeinstellungen aus und setzt die Windows-Version auf Windows XP.
+> Möchte man Office unter Windows XP laufen haben wählt man in dem Fenster (winecfg, "Wine-Konfiguration"), welches sich öffnet, nun in der Liste im "Anwendungen"-Register die Standardeinstellungen aus und setzt die Windows-Version auf Windows XP. Ansonsten kann man es auf Windows 7 belassen.
 
 Da wir nun einen neuen wineprefix erstellt haben, muss dieser jedes mal angegeben werden, wenn man diesen oder in ihm installierte Programme nutzen möchte.  
 Mehr informationen zu wineprefix findet man hier:  
 https://wiki.winehq.org/Wine_User%27s_Guide#WINEPREFIX  
 https://wiki.winehq.org/FAQ#Wineprefixes
 
-Am besten installiert man Office mit dem Service Pack 2.
-Um nun Office zu installieren geht man in das Verzeichnis mit den Installationsdateien und führt `WINEPREFIX=~/.wine_office wine setup.exe` aus oder gibt den kompletten Pfad an, z.B. `WINEPREFIX=~/.wine_office wine /media/phybox/USB-STICK/Office2007/SETUP.EXE`
+Um nun Office zu installieren geht man in das Verzeichnis mit den Installationsdateien und führt `WINEPREFIX=~/.wine_office wine SETUP.EXE` aus oder gibt den kompletten Pfad an, z.B. `WINEPREFIX=~/.wine_office wine /media/phybox/USB-STICK/Office2007/SETUP.EXE`
 Man folgt nun einfach dem Installer wie auch auf Windows.
-Um das Service Pack zu installieren geht man ähnlich vor. Man führt den Installer mit wine aus, z.B. `WINEPREFIX=~/.wine_office wine /media/phybox/USB-STICK/Office2007_SP2/office2007sp2-kb953195-fullfile-de-de.exe`, und folgt diesem.
+> Wenn man sich zuvor entschieden hat Office unter Windows XP zu installieren, installiert man am besten auch das Service Pack 2.
+> Um das Service Pack zu installieren geht man ähnlich vor wie mit Office selbst. Man führt den Installer mit wine aus, z.B. `WINEPREFIX=~/.wine_office wine /media/phybox/USB-STICK/Office2007_SP2/office2007sp2-kb953195-fullfile-de-de.exe`, und folgt diesem.
 
-Nachdem beides installiert ist muss man nun winecfg (mit `WINEPREFIX=~/.wine_office winecfg`) erneut starten. In dem Register "Bibliotheken" fügt man eine neue Überschreibung für riched20 hinzu. Man tippt `riched20` in das Feld "Neue Überscheibung für:" ein bzw. wählt es aus und klickt "Hinzufügen". Es sollte nun `riched20 (Native, Buildin)` in der Liste stehen. Ist dies nicht der Fall wählt man riched20 aus, klickt auf "Bearbeiten" und stellt sicher, dass "Native dann Buildin" ausgewählt ist.
+Nachdem Office nun installiert ist muss man nun winecfg (mit `WINEPREFIX=~/.wine_office winecfg`) erneut starten. In dem Register "Bibliotheken" fügt man eine neue Überschreibung für riched20 hinzu. Man tippt `riched20` in das Feld "Neue Überscheibung für:" ein bzw. wählt es aus und klickt "Hinzufügen". Es sollte nun `riched20 (Native, Buildin)` in der Liste stehen. Ist dies nicht der Fall wählt man riched20 aus, klickt auf "Bearbeiten" und stellt sicher, dass "Native dann Buildin" ausgewählt ist.
 Diese Überschreibung konfiguriert wine so, dass Office seine eigene riched20.dll nutzen kann.
 
-Die Programme sind nun unter `"~/.wine_office/drive_c/Program Files (x86)/Microsoft Office/Office12/"` als WINWORD.exe, EXCEL.exe und POWERPNT.exe installiert und könnten mit wine, wineconsole oder wine start ausgeführt werden (man muss den wineprefix angeben).
+Die Programme sind nun unter `"~/.wine_office/drive_c/Program Files (x86)/Microsoft Office/Office12/"` als WINWORD.exe, EXCEL.exe und POWERPNT.exe installiert und könnten mit wine, wineconsole oder wine start ausgeführt werden (man muss jeweils den wineprefix angeben).
 
 ### Tests:
 Während der Tests habe ich je eine Word, Excel und Powerpoint Datei erstellt und in den Dateieigenschaften von Debian/Gnome eingestellt, diese standartmäßig mit dem jeweiligen Office-Program zu öffnen.
