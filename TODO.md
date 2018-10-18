@@ -26,7 +26,7 @@
     - einfach laptop neu aufsetzen
  - firefox daten löschen
  - firefox bookmarks
- - 
+ - icon für phymex
 
 
 classpad manager:
