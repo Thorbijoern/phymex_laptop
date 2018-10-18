@@ -169,7 +169,9 @@ Man folgt nun einfach dem Installer wie auch auf Windows.
 Nachdem Office nun installiert ist muss man nun winecfg (mit `WINEPREFIX=~/.wine_office winecfg`) erneut starten. In dem Register "Bibliotheken" fügt man eine neue Überschreibung für riched20 hinzu. Man tippt `riched20` in das Feld "Neue Überscheibung für:" ein bzw. wählt es aus und klickt "Hinzufügen". Es sollte nun `riched20 (Native, Buildin)` in der Liste stehen. Ist dies nicht der Fall wählt man riched20 aus, klickt auf "Bearbeiten" und stellt sicher, dass "Native dann Buildin" ausgewählt ist.
 Diese Überschreibung konfiguriert wine so, dass Office seine eigene riched20.dll nutzen kann.
 
-Die Programme sind nun unter `"~/.wine_office/drive_c/Program Files (x86)/Microsoft Office/Office12/"` als WINWORD.exe, EXCEL.exe und POWERPNT.exe installiert und könnten mit wine, wineconsole oder wine start ausgeführt werden (man muss jeweils den wineprefix angeben).
+Die Programme sind nun unter `"~/.wine_office/drive_c/Program Files/Microsoft Office/Office12/"` als WINWORD.EXE, EXCEL.EXE und POWERPNT.EXE installiert und könnten mit wine, wineconsole oder wine start ausgeführt werden (man muss jeweils den wineprefix angeben).
+
+Man sollte Word ein mal starten, bevor man Office anfängt wirklich zu nutzen. Dafür kann man den Befehl `WINEPREFIX=~/.wine_office wine "~/.wine_office/drive_c/Program Files/Microsoft Office/Office12/WINWORD.EXE"` nutzen.
 
 ### Tests:
 Während der Tests habe ich je eine Word, Excel und Powerpoint Datei erstellt und in den Dateieigenschaften von Debian/Gnome eingestellt, diese standartmäßig mit dem jeweiligen Office-Program zu öffnen.
