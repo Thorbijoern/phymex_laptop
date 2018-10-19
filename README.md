@@ -202,6 +202,38 @@ Was jedoch funktioniert hat war im Grafik-Register von winecfg den virtuellen Bi
 
 
 ## Weitere Einstellungen
+### Einstellungen
+Einstellungen in der "Einstellungen"-GUI:
+Maus und Tastfeld:
+ - Tastfeld
+    - Bildlauf am Rand: An
+Hintergrund:
+ - anderen Hintergrund und Sperrbildschirm auswählen
+
+
+### Gnome-Tweaks Einstellungen
+Gnome-Tweaks oder "Optimierungswerkzeug" ist eine kleine GUI Anwendung um Einstellungen der Gnome Desktop-Environment anzupassen.
+Ich habe folgende Einstellungen vorgenommen:
+Arbeitsoberfläche
+ - Symbole auf Arbeitsfläche: An
+    - :ballot_box_with_check: Persönlicher Ordner
+    - :black_square_button: Netzwerk Server
+    - :ballot_box_with_check: Papierkorb
+    - :ballot_box_with_check: Eingebundene Datenträger
+Erweiterungen
+ - Applications menu: An
+ - Window list: An
+Fenster
+ - Knöpfe der Titelleiste
+    - Maximieren: An
+    - Minimieren: An
+Obere Leiste
+ - Anwendungsmenü anzeigen: An
+ - Uhr
+    - :ballot_box_with_check: Datum zeigen
+    - :black_square_button: Sekunden zeigen
+
+
 ### Desktop Einträge
 Mit dem in wine integrierten Tool `winemenubuilder` lassen sich Einträge in das Gnome Application Menu erstellen. Jedoch funktioniert dies nur automatisch für die Microsoft Office Programme, da diese von dem Installer in die Wine-/Windows-Registry eingetragen wurden. Für Phymex müssen manuell Einträge erstellt werden.
 
@@ -219,8 +251,9 @@ Der Desktop Eintrag für Phymex würde wie folgt aussehen:
 
 Man kann dies als Phymex.desktop unter `/usr/share/applications/Phybox/Phymex.desktop` mit dem Texteditor nano anlegen.
 
-Die folgenden Dateien wurden mit nano erstellt und basieren auf den freedesktop-Spezifikationen und den von wine automatisch erstellten Einträgen.
+Im folgenden sind die Schritte, die man durchführen muss knapp erklärt. Wo bloß ein Pfad mit einem Codesnipsel angegeben ist erstellt man diese Datei mit dem Codesnipsel als Inhalt, z.B. mit dem Editor nano. Möchte man in den folgenden Schritten die Änderungen sehen, muss man sich u.U. abmelden und neu anmelden.
 
+Erstellen von ein paar Dateien:
 ~/.local/share/desktop-directories/Microsoft\ Office.directory
 
     [Desktop Entry]
@@ -243,7 +276,7 @@ Die folgenden Dateien wurden mit nano erstellt und basieren auf den freedesktop-
     Icon=folder
 
 
-`mkdir ~/.local/share/applications/wine/Programs/Phymex/`
+Einen Ordner erstellen: `mkdir ~/.local/share/applications/wine/Programs/Phymex/`  
 ~/.local/share/applications/wine/Programs/Phymex/Phymex.desktop
 
     [Desktop Entry]
@@ -251,9 +284,8 @@ Die folgenden Dateien wurden mit nano erstellt und basieren auf den freedesktop-
     Version=1.1
     Name=Phymex
     Comment=Phybox/Phymex: Das universelle, PC-gesteuerte Meß- und Datenerfassungs-System
-    #Icon=
+    Icon=Phymex
     Exec=env WINEPREFIX="/home/phybox/.wine" wine /home/phybox/.wine/dosdevices/c:/PHYMEX/PHYMEX1.EXE
-    #Path=~/
     #MimeType=application/octet-stream;application/x-php;
     Categories=Education;Science;DataVisualization;Physics;
     Keywords=Phybox;Physik;Experimente;
@@ -261,11 +293,14 @@ Die folgenden Dateien wurden mit nano erstellt und basieren auf den freedesktop-
     StartupWMClass=phymex1.exe
 
 Den Comment habe ich aus dem deutschen Prospekt zu der Phybox entnommen, welcher von der Uni-Bayreuth veröffentlich wurde.  
-Ein Icon müsste aus der Exe-Datei extrahiert oder manuell gezeichnet werden.  
-Der MimeType kann aus den Eigenschaften von Phymex-Dateien gelesen werden, ist aber sehr mehrdeutig.  
+Der MimeType kann aus den Eigenschaften von Phymex-Dateien gelesen werden, ist aber sehr mehrdeutig und deswegen auskommentiert.  
 Die Categories wurden aus einer vordefinierten Liste in der Desktop Menu Specification gewählt.  
-Die Keywords wurden frei gewählt und sind haupsächlich dazu da, dass man das Programm in der Suche im Application Menu besser findet.
+Die Keywords wurden frei gewählt und sind haupsächlich dazu da, dass man das Programm in der Suche im Application Menu besser findet.  
+Ein Icon kann aus der Exe-Datei extrahiert oder manuell gezeichnet werden.
+Um einen Icon für Phymex zu extrahieren, installiert man icoutils mit `sudo apt install icoutils`. Man extrahiert dann den Icon mit `wrestool -x --output=. -t14 ~/.wine/drive_c/PHYMEX/PHYMEX1.EXE` und konvertiert in mit `icotool -x PHYMEX1.EXE_14_1.ico` zu einer PNG-Datei. Um diesen Schritt abzuschließen verschiebt man nun noch die PNG: `mv PHYMEX1.EXE_14_1_1_32x32x4.png ~/.local/share/icons/hicolor/32x32/apps/Phymex.png`.
 
+
+In diesem Schritt werden zwei Ordner und mehrere Softlinks zu Desktop-Einträgen angelegt, damit die Dateien nicht mehrmals existieren (falls man sie später editieren möchte):  
 `mkdir ~/.local/share/applications/Phymex`
 
 `mkdir ~/.local/share/applications/Microsoft\ Office`
@@ -279,7 +314,7 @@ Die Keywords wurden frei gewählt und sind haupsächlich dazu da, dass man das P
 `ln -s~/.local/share/applications/wine/Programs/Microsoft\ Office/Microsoft\ Office\ PowerPoint\ 2007.desktop ~/.local/share/applications/Microsoft\ Office/Microsoft\ Office\ PowerPoint\ 2007.desktop`
 
 
-
+Weitere Dateien anlegen:  
 ~/.config/menus/applications-merged/wine-Programs-Phymex-Phymex.menu
 
     <!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
@@ -339,45 +374,21 @@ Die Keywords wurden frei gewählt und sind haupsächlich dazu da, dass man das P
       </Menu>
     </Menu>
 
-Zum Schluss legt man noch mit den folgenden Befehlen Softlinks auf den Schreibtisch/Desktop:  
+
+Um die Berechtigungen der .desktop Datei von Firefox ändern zu können, müssen wir sie kopieren und den Besitzer auf Phybox ändern:  
+`sudo cp /usr/share/applications/firefox-esr.desktop ~/.local/share/applications/`  
+`sudo chown phybox:phybox ~/.local/share/applications/firefox-esr.desktop`  
+Zum Schluss legt man noch mit den folgenden Befehlen Softlinks auf dem Schreibtisch/Desktop an:  
 `ln -s ~/.local/share/applications/Microsoft\ Office/* ~/Schreibtisch/`  
 `ln -s ~/.local/share/applications/Phymex/Phymex.desktop ~/Schreibtisch/`  
+`ln -s ~/.local/share/applications/firefox-esr ~/Schreibtisch/`  
 und macht diese ausführbar:
-`chmod ug+x ~/Schreibtisch/*`
-Um das abzuschließen sollte man alle Programme über ihre Links auf dem Schreibtisch ein mal starten und mit "Vertrauen und ausführen" bestätigen.
-
-### Einstellungen
-Einstellungen in der "Einstellungen"-GUI:
-Maus und Tastfeld:
- - Tastfeld
-    - Bildlauf am Rand: An
-Hintergrund:
- - anderen Hintergrund und Sperrbildschirm auswählen
-
-### Gnome-Tweaks Einstellungen
-Gnome-Tweaks oder "Optimierungswerkzeug" ist eine kleine GUI Anwendung um Einstellungen der Gnome Desktop-Environment anzupassen.
-Ich habe folgende Einstellungen vorgenommen:
-Arbeitsoberfläche
- - Symbole auf Arbeitsfläche: An
-    - :ballot_box_with_check: Persönlicher Ordner
-    - :black_square_button: Netzwerk Server
-    - :ballot_box_with_check: Papierkorb
-    - :ballot_box_with_check: Eingebundene Datenträger
-Erweiterungen
- - Applications menu: An
- - Window list: An
-Fenster
- - Knöpfe der Titelleiste
-    - Maximieren: An
-    - Minimieren: An
-Obere Leiste
- - Anwendungsmenü anzeigen: An
- - Uhr
-    - :ballot_box_with_check: Datum zeigen
-    - :black_square_button: Sekunden zeigen
+`chmod ug+x ~/Schreibtisch/*`  
+Um das abzuschließen sollte man auf den Schreibtisch klicken, F5 drücken und alle Programme über ihre Links auf dem Schreibtisch ein mal starten und mit "Vertrauen und ausführen" bestätigen.
 
 
 ### Nachbereitungen
+`apt remove icoutils
 Mit `sudo apt autoremove` überflüssig gewordene Programme deinstallieren
 
 ## Weitere Ideen
