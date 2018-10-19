@@ -328,13 +328,23 @@ Die Keywords wurden frei gewählt und sind haupsächlich dazu da, dass man das P
         <Name>Microsoft Office</Name>
         <Directory>Microsoft Office.directory</Directory>
         <Include>
-          <Filename>Microsoft Office-Microsoft Office.desktop</Filename>
+          <Filename>Microsoft Office-Microsoft Office Word 2007.desktop</Filename>
+        </Include>
+        <Include>
+          <Filename>Microsoft Office-Microsoft Office Excel 2007.desktop</Filename>
+        </Include>
+        <Include>
+          <Filename>Microsoft Office-Microsoft Office PowerPoint 2007.desktop</Filename>
         </Include>
       </Menu>
     </Menu>
 
-
-Außerdem erhält Phymex ein eigenes Menü:
+Zum Schluss legt man noch mit den folgenden Befehlen Softlinks auf den Schreibtisch/Desktop:  
+`ln -s ~/.local/share/applications/Microsoft\ Office/* ~/Schreibtisch/`  
+`ln -s ~/.local/share/applications/Phymex/Phymex.desktop ~/Schreibtisch/`  
+und macht diese ausführbar:
+`chmod ug+x ~/Schreibtisch/*`
+Um das abzuschließen sollte man alle Programme über ihre Links auf dem Schreibtisch ein mal starten und mit "Vertrauen und ausführen" bestätigen.
 
 ### Einstellungen
 Einstellungen in der "Einstellungen"-GUI:
