@@ -15,8 +15,9 @@ Eine Windows-Domain/Active Directory integration war für den Fachlehrer nicht n
 Als Hardware stand ein Fujitsu Esprimo Mobile D9510 zur Verfügung und die Basis bildet die GNU/Linux Distribution Debian 9 alias "stretch".
 
 ## Ergebnis
-### Known Limitations/Problems
+### Anmerkungen/Known Limitations/Problems
  - Der integrierte WLAN (und Bluetooth) Adapter benötigt nicht-freie Treiber, die ich nicht finden konnte. Dies ist jedoch kaum ein Problem, da die Schule eh kein WLAN zur Verfügung stellt.
+ - Um die Programme etwas einfacher verwalten zu können hätte man PlayOnLinux benutzen können.
 
 
 ### Erfolge
@@ -218,14 +219,16 @@ Der Desktop Eintrag für Phymex würde wie folgt aussehen:
 
 Man kann dies als Phymex.desktop unter `/usr/share/applications/Phybox/Phymex.desktop` mit dem Texteditor nano anlegen.
 
-~/.local/share/desktop-directories/wine-Microsoft\ Office.directory
+Die folgenden Dateien wurden mit nano erstellt und basieren auf den freedesktop-Spezifikationen und den von wine automatisch erstellten Einträgen.
+
+~/.local/share/desktop-directories/Microsoft\ Office.directory
 
     [Desktop Entry]
     Type=Directory
     Name=Microsoft Office
     Icon=folder
 
-~/.local/share/desktop-directories/wine-Phymex.directory
+~/.local/share/desktop-directories/Phymex.directory
 
     [Desktop Entry]
     Type=Directory
@@ -240,7 +243,7 @@ Man kann dies als Phymex.desktop unter `/usr/share/applications/Phybox/Phymex.de
     Icon=folder
 
 
-mkdir ~/.local/share/applications/wine/Programs/Phymex/
+`mkdir ~/.local/share/applications/wine/Programs/Phymex/`
 ~/.local/share/applications/wine/Programs/Phymex/Phymex.desktop
 
     [Desktop Entry]
@@ -249,13 +252,32 @@ mkdir ~/.local/share/applications/wine/Programs/Phymex/
     Name=Phymex
     Comment=Phybox/Phymex: Das universelle, PC-gesteuerte Meß- und Datenerfassungs-System
     #Icon=
-    Exec=wine ~/.wine/drive_c/PHYMEX/PHYMEX1.EXE
+    Exec=env WINEPREFIX="/home/phybox/.wine" wine /home/phybox/.wine/dosdevices/c:/PHYMEX/PHYMEX1.EXE
     #Path=~/
     #MimeType=application/octet-stream;application/x-php;
     Categories=Education;Science;DataVisualization;Physics;
     Keywords=Phybox;Physik;Experimente;
     StartupNotify=true
     StartupWMClass=phymex1.exe
+
+Den Comment habe ich aus dem deutschen Prospekt zu der Phybox entnommen, welcher von der Uni-Bayreuth veröffentlich wurde.  
+Ein Icon müsste aus der Exe-Datei extrahiert oder manuell gezeichnet werden.  
+Der MimeType kann aus den Eigenschaften von Phymex-Dateien gelesen werden, ist aber sehr mehrdeutig.  
+Die Categories wurden aus einer vordefinierten Liste in der Desktop Menu Specification gewählt.  
+Die Keywords wurden frei gewählt und sind haupsächlich dazu da, dass man das Programm in der Suche im Application Menu besser findet.
+
+`mkdir ~/.local/share/applications/Phymex`
+
+`mkdir ~/.local/share/applications/Microsoft\ Office`
+
+`ln -s~/.local/share/applications/wine/Programs/Phymex/Phymex.desktop ~/.local/share/applications/Phymex/Phymex.desktop`
+
+`ln -s~/.local/share/applications/wine/Programs/Microsoft\ Office/Microsoft\ Office\ Word\ 2007.desktop ~/.local/share/applications/Microsoft\ Office/Microsoft\ Office\ Word\ 2007.desktop`
+
+`ln -s~/.local/share/applications/wine/Programs/Microsoft\ Office/Microsoft\ Office\ Excel\ 2007.desktop ~/.local/share/applications/Microsoft\ Office/Microsoft\ Office\ Excel\ 2007.desktop`
+
+`ln -s~/.local/share/applications/wine/Programs/Microsoft\ Office/Microsoft\ Office\ PowerPoint\ 2007.desktop ~/.local/share/applications/Microsoft\ Office/Microsoft\ Office\ PowerPoint\ 2007.desktop`
+
 
 
 ~/.config/menus/applications-merged/wine-Programs-Phymex-Phymex.menu
@@ -265,16 +287,52 @@ mkdir ~/.local/share/applications/wine/Programs/Phymex/
     <Menu>
       <Name>Applications</Name>
       <Menu>
-        <Name>wine-Phymex</Name>
-        <Directory>wine-Phymex.directory</Directory>
+        <Name>wine-wine</Name>
+        <Directory>wine-wine.directory</Directory>
+        <Menu>
+          <Name>wine-Programs</Name>
+          <Directory>wine-Programs.directory</Directory>
+          <Menu>
+            <Name>wine-Programs-Phymex</Name>
+            <Directory>wine-Programs-Phymex.directory</Name>
+            <Include>
+              <Filename>wine-Programs-Phymex-Phymex.desktop</Filename>
+            </Include>
+          </Menu>
+        </Menu>
       </Menu>
     </Menu>
 
-Den Comment habe ich aus dem deutschen Prospekt zu der Phybox entnommen, welcher von der Uni-Bayreuth veröffentlich wurde.  
-Ein Icon müsste aus der Exe-Datei extrahiert oder manuell gezeichnet werden.  
-Der MimeType kann aus den Eigenschaften von Phymex-Dateien gelesen werden, ist aber sehr mehrdeutig.  
-Die Categories wurden aus einer vordefinierten Liste in der Desktop Menu Specification gewählt.  
-Die Keywords wurden frei gewählt und sind haupsächlich dazu da, dass man das Programm in der Suche im Application Menu besser findet.
+~/.config/menus/applications-merged/Phymex-Phymex.menu
+
+    <!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
+    "http://www.freedesktop.org/standards/menu-spec/menu-1.0.dtd">
+    <Menu>
+      <Name>Applications</Name>
+      <Menu>
+        <Name>Phymex</Name>
+        <Directory>Phymex.directory</Directory>
+        <Include>
+          <Filename>Phymex-Phymex.desktop</Filename>
+        </Include>
+      </Menu>
+    </Menu>
+
+~/.config/menus/applications-merged/Microsoft\ Office-Microsoft\ Office.menu
+
+    <!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
+    "http://www.freedesktop.org/standards/menu-spec/menu-1.0.dtd">
+    <Menu>
+      <Name>Applications</Name>
+      <Menu>
+        <Name>Microsoft Office</Name>
+        <Directory>Microsoft Office.directory</Directory>
+        <Include>
+          <Filename>Microsoft Office-Microsoft Office.desktop</Filename>
+        </Include>
+      </Menu>
+    </Menu>
+
 
 Außerdem erhält Phymex ein eigenes Menü:
 
