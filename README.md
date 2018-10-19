@@ -42,7 +42,7 @@ Nachdem ich die aktuelle Version von Wine nutzte und den Benutzer zu den Gruppen
 
 ## Linux
 ### Installation
-Für die Installation hatte ich eine aktuelle Debian ISO (9.5.0 amd64 netinstall) von debian.org runter geladen und auf einen USB-Stick geflasht. Am Laptop habe ich dann von dem USB-Stick gestartet und die Installation mit Hilfe der grafischen Oberfläche (Graphical Install  ) gewählt.
+Für die Installation hatte ich eine aktuelle Debian ISO (9.5.0 amd64 netinstall) von debian.org runter geladen und auf einen USB-Stick geflasht. Am Laptop habe ich dann von dem USB-Stick gestartet und die Installation mit Hilfe der grafischen Oberfläche (Graphical Install) gewählt.
 
 Folgend sind alle Einstallungen, die ich während der Installation vorgenommen habe:
 Sprache: German - Deutsch  
@@ -182,8 +182,8 @@ Während der Tests habe ich je eine Word, Excel und Powerpoint Datei erstellt un
 Phymex (die Software für die Phybox) kann bei der Uni-Bayreuth ([link](http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/0_download/phybox.zip)) runter geladen werden bzw. von einer CD genommen werden.
 Wenn man die Dateien als Zip von der Uni-Bayreuth heruntergeladen hat entpackt man sie im Terminal mit `unzip phybox.zip` oder im Datei-Browser mit Rechtsklick und Klick auf "Hier entpacken".
 
-Phymex funktioniert einfach so unter wine und hat keine besonderen Anforderungen, es kann daher in den standard wineprefix installiert werden. Wenn das Verzeichnis bzw.der wineprefix ~/.wine noch nicht besteht kann man einfach `winecfg`, ohne das setzen von Variablen, aufrufen.
-Man wechselt mit cd in das Verzeichnis mit den Installationsdateien (z.B. "cd ~/Downloads/phybox") und führt `wine Phymex_Setup.exe` aus. Dies wird das setup-programm für Phymex starten.
+Phymex funktioniert einfach so unter wine und hat keine besonderen Anforderungen, wie ich nach mehreren Versuchen mit verschiedenen Einstellungen festgestellt habe. Es kann daher in den standard wineprefix installiert werden. Wenn das Verzeichnis bzw.der wineprefix ~/.wine noch nicht besteht kann man einfach `winecfg`, ohne das setzen von Variablen, aufrufen.
+Man wechselt mit cd in das Verzeichnis mit den Installationsdateien (z.B. `cd ~/Downloads/phybox`) und führt `wine Phymex_Setup.exe` aus. Dies wird das setup-programm für Phymex starten.
 Wenn das Setup-Programm gestartet ist folgt man einfach dem Prozess.
 Ich habe Deutsch als Sprache gewählt und den Standard Installationspfad genutzt.
 Das am Ende noch offene kleine Fenster (Entpacker) kann man einfach schließen, die Warnung die beim Schließen angezeigt wird kann ignoriert werden.
@@ -194,7 +194,7 @@ Phymex kann man nun mit `wine ~/.wine/drive_c/PHYMEX/PHYMEX1.EXE` starten.
 ### Phymex wine Einstellungen
 Nach dem Reinstall in dem win32 wineprefix habe ich versucht ob das Hinzufügen der Phymex Executables (unter "~/.wine/drive_c/PHYMEX") und das setzten von anderen Windows Versionen für diese (Standart auf Windows 7 gelassen, hatte Windows 2000, 98 und 95 für Phymex) einen Unterschied bezüglich des grauen Bandes macht, was sich bei Vollbild über die Steuerelemente auf der rechten Seite schiebt, aber leider hatte das nicht funktioniert und ich habe sie wieder entfernt (der Standart wird wieder genutzt).
 
-Was jedoch funktioniert hat war im Grafik-Register von winecfg den virtuellen Bildschirm aktivieren und die Desktop-Größe auf 1339 x 836 zu setzen. Die Desktop-Größe habe ich durch Versuche herausgefunden und funktionieren am besten mit Phymex und der Auflösung von dem Laptop. Die Fenster-Leiste oben bekommt man leider durch deaktivieren der Optionen "Erlaube dem Fenstermanager die Fenster zu dekorieren" bzw. "Erlaube dem Fenstermanager die Fenster zu kontrollieren" nicht weg.
+Was jedoch funktioniert hat war im Grafik-Register von winecfg den virtuellen Bildschirm aktivieren und die Desktop-Größe auf 1339 x 836 zu setzen. Die Desktop-Größe habe ich durch Versuche herausgefunden und funktionieren am besten mit Phymex und der Auflösung von dem Laptop. Die zusätzliche Fenster-Leiste oben bekommt man leider durch deaktivieren der Optionen "Erlaube dem Fenstermanager die Fenster zu dekorieren" bzw. "Erlaube dem Fenstermanager die Fenster zu kontrollieren" nicht weg.
 
 
 ## Weitere Einstellungen
