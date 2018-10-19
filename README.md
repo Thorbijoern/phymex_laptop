@@ -3,22 +3,25 @@ Diese Dokumentation ist unter der XXXXX Lizenz auf Github veröffentlicht: https
 
 ## Aufgabe / Zielsetzung
 In diesem Dokument beschreibe ich die Schritte, die ich zum Aufsetzen eines Laptops vorgenommen habe.  
-Das Laptop soll dem Physik-Unterricht dienen und soll ein anderes Laptop mit Windows XP ersetzen.  
+Das Laptop soll dem Physik-Unterricht dienen und soll, u.a. wegen Sicherheitsbedenken, ein anderes Laptop mit Windows XP ersetzen.  
 Dieses Laptop wird hauptsächlich in Verbindung mit Phymex genutzt. Dies ist eine Software die es ermöglicht, mit Hilfe der zugehörigen Phybox, Messdaten von z.B. Experimenten aufzunehmen und diese grafisch darzustellen. Die Datenübertragung zwischen Phymex, bzw. dem Computer auf dem Phymex läuft, und der Phybox geschieht durch eine serielle Schnittstelle, in diesem Fall eine RS-232 Schnittstelle über einen 9-poligen D-Sub COM-Port an dem Laptop.  
 Weitere Informationen kann man dem folgenden von der Uni-Bayreuth veröffentlichten Dokument entnehmen:
 http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/0_download/phybox.pdf
+
+Um die Nutzung dem Fachlehrer etwas einfacher zu machen wird zusätzlich Microsoft Office 2007 installiert, damit schon bestehende Dokumente problemlos genutzt werden können. (Zusätzlich zu MS Office steht noch LibreOffice zur Verfügung.)
+Zudem hat sich der Fachlehrer einen Webbrowser gewünscht. Dafür wird Firefox genutzt, welcher schon bei der Debian Desktopoberfläche/Gnome vorinstalliert ist.
+Eine Windows-Domain/Active Directory integration war für den Fachlehrer nicht nötig.
 
 Als Hardware stand ein Fujitsu Esprimo Mobile D9510 zur Verfügung und die Basis bildet die GNU/Linux Distribution Debian 9 alias "stretch".
 
 ## Ergebnis
 ### Known Limitations/Problems
- - Der integrierte WLAN (und Bluetooth) Adapter benötigt nicht-freie Treiber, die ich nicht finden konnte.
- - Ich konnte leider das Problem in Phymex nicht lösen, bei dem im Vollbild-Modus eine graue Leiste am rechten Rand Steuerelemente überdeckt.
+ - Der integrierte WLAN (und Bluetooth) Adapter benötigt nicht-freie Treiber, die ich nicht finden konnte. Dies ist jedoch kaum ein Problem, da die Schule eh kein WLAN zur Verfügung stellt.
 
 
 ### Erfolge
- - Office läuft
- - Phymex läuft
+Office und Phymex funktionieren erfolgreich und ich konnte sogar das Problem mit Phymex beheben, dass 
+Ich habe einiges zur Nutzung von Wine lernen können und konnte mein Wissen zu Linux im allgemeinen etwas vertiefen und erweitern.
 
 
 ## Vorbereitung
@@ -203,23 +206,69 @@ Mit dem in wine integrierten Tool `winemenubuilder` lassen sich Einträge in das
 
 Gnome folgt den Standarts von freedesktop.org (ehemals X Desktop Group, kurz XDG) und folgt für Desktop Einträge bzw. Einträge ins Appliction Menu der [Desktop Menu Specification](https://specifications.freedesktop.org/menu-spec/menu-spec-latest.html) und der [Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html).
 
-Um für Office Einträge anzulegen führt man `WINEPREFIX=~/.wine_office wine winemenubuilder` aus.
+Die Menü Einträge für Office sollten von wine automatisch erstellt werden, aber man kann auch `WINEPREFIX=~/.wine_office wine winemenubuilder` manuell ausführen.  
+Winemenubuilder erstellt u.a. in den folgenden Ordnern Einträge:
+ - `~/.config/menus/applications-merged/` .menu einträge
+ - `~/.local/share/desktop-directories/` .directory einträge
+ - `~/.local/share/applications` .desktop einträge
+ - `~/.local/share/icons` icons für die programme
+Die Einträge, die wine vornimmt, sind nur für den jeweiligen Benutzer, genau so wie die wineprefixe.
 
 Der Desktop Eintrag für Phymex würde wie folgt aussehen:
 
-    [DesktopEntry]
+Man kann dies als Phymex.desktop unter `/usr/share/applications/Phybox/Phymex.desktop` mit dem Texteditor nano anlegen.
+
+~/.local/share/desktop-directories/wine-Microsoft\ Office.directory
+
+    [Desktop Entry]
+    Type=Directory
+    Name=Microsoft Office
+    Icon=folder
+
+~/.local/share/desktop-directories/wine-Phymex.directory
+
+    [Desktop Entry]
+    Type=Directory
+    Name=Phymex
+    Icon=folder
+
+~/.local/share/desktop-directories/wine-Programs-Phymex.directory
+
+    [Desktop Entry]
+    Type=Directory
+    Name=Phymex
+    Icon=folder
+
+
+mkdir ~/.local/share/applications/wine/Programs/Phymex/
+~/.local/share/applications/wine/Programs/Phymex/Phymex.desktop
+
+    [Desktop Entry]
     Type=Application
     Version=1.1
     Name=Phymex
     Comment=Phybox/Phymex: Das universelle, PC-gesteuerte Meß- und Datenerfassungs-System
-    # Icon= ?
+    #Icon=
     Exec=wine ~/.wine/drive_c/PHYMEX/PHYMEX1.EXE
-    Path=~/
-    # MimeType=application/octet-stream;application/x-php;
+    #Path=~/
+    #MimeType=application/octet-stream;application/x-php;
     Categories=Education;Science;DataVisualization;Physics;
     Keywords=Phybox;Physik;Experimente;
+    StartupNotify=true
+    StartupWMClass=phymex1.exe
 
-Man kann dies als Phymex.desktop unter `/usr/share/applications/Phybox/Phymex.desktop` mit dem Texteditor nano anlegen.
+
+~/.config/menus/applications-merged/wine-Programs-Phymex-Phymex.menu
+
+    <!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
+    "http://www.freedesktop.org/standards/menu-spec/menu-1.0.dtd">
+    <Menu>
+      <Name>Applications</Name>
+      <Menu>
+        <Name>wine-Phymex</Name>
+        <Directory>wine-Phymex.directory</Directory>
+      </Menu>
+    </Menu>
 
 Den Comment habe ich aus dem deutschen Prospekt zu der Phybox entnommen, welcher von der Uni-Bayreuth veröffentlich wurde.  
 Ein Icon müsste aus der Exe-Datei extrahiert oder manuell gezeichnet werden.  
