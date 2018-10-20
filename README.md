@@ -217,10 +217,10 @@ Gnome-Tweaks oder "Optimierungswerkzeug" ist eine kleine GUI Anwendung um Einste
 Ich habe folgende Einstellungen vorgenommen:
 Arbeitsoberfläche
  - Symbole auf Arbeitsfläche: An
-    - :ballot_box_with_check: Persönlicher Ordner
-    - :black_square_button: Netzwerk Server
-    - :ballot_box_with_check: Papierkorb
-    - :ballot_box_with_check: Eingebundene Datenträger
+    - ☑️ Persönlicher Ordner
+    - 🔲 Netzwerk Server
+    - ☑️ Papierkorb
+    - ☑️ Eingebundene Datenträger
 Erweiterungen
  - Applications menu: An
  - Window list: An
@@ -231,8 +231,8 @@ Fenster
 Obere Leiste
  - Anwendungsmenü anzeigen: An
  - Uhr
-    - :ballot_box_with_check: Datum zeigen
-    - :black_square_button: Sekunden zeigen
+    - ☑️ Datum zeigen
+    - 🔲 Sekunden zeigen
 
 
 ### Desktop Einträge
