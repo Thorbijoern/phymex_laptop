@@ -187,16 +187,17 @@ Phymex (die Software für die Phybox) kann bei der Uni-Bayreuth ([link](http://d
 Wenn man die Dateien als Zip von der Uni-Bayreuth heruntergeladen hat entpackt man sie im Terminal mit `unzip phybox.zip` oder im Datei-Browser mit Rechtsklick und Klick auf "Hier entpacken".
 
 Phymex funktioniert einfach so unter wine und hat keine besonderen Anforderungen, wie ich nach mehreren Versuchen mit verschiedenen Einstellungen festgestellt habe. Es kann daher in den standard wineprefix installiert werden. Wenn das Verzeichnis bzw.der wineprefix ~/.wine noch nicht besteht kann man einfach `winecfg`, ohne das setzen von Variablen, aufrufen.
-Man wechselt mit cd in das Verzeichnis mit den Installationsdateien (z.B. `cd ~/Downloads/phybox`) und führt `wine Phymex_Setup.exe` aus. Dies wird das setup-programm für Phymex starten.
+ > Es ändert zwar scheinbar nichts an der Funktionalität aber aufgrund des alters von Phymex könnte man es auch mit `WINEARCH=win32 winecfg` einen 32bit wineprefix erstellen, in winecfg die Windows-Version auf XP, 98 oder 95 stellen und es dann in diesen installieren.
+Man wechselt mit cd in das Verzeichnis mit den Installationsdateien (z.B. `cd ~/Downloads/phybox`) und führt `wine Phymex_Setup.exe` aus. Dies wird das setup-Programm für Phymex starten.
 Wenn das Setup-Programm gestartet ist folgt man einfach dem Prozess.
 Ich habe Deutsch als Sprache gewählt und den Standard Installationspfad genutzt.
 Das am Ende noch offene kleine Fenster (Entpacker) kann man einfach schließen, die Warnung die beim Schließen angezeigt wird kann ignoriert werden.
-Fehler die wine im Terminal ausgegeben hat kann man einfach ignorieren.  
+Fehler (hauptsächlich "fixme"-Anmerkungen) die wine im Terminal ausgegeben hat kann man einfach ignorieren.  
 Phymex kann man nun mit `wine ~/.wine/drive_c/PHYMEX/PHYMEX1.EXE` starten.
 
 
 ### Phymex wine Einstellungen
-Nach dem Reinstall in dem win32 wineprefix habe ich versucht ob das Hinzufügen der Phymex Executables (unter "~/.wine/drive_c/PHYMEX") und das setzten von anderen Windows Versionen für diese (Standart auf Windows 7 gelassen, hatte Windows 2000, 98 und 95 für Phymex) einen Unterschied bezüglich des grauen Bandes macht, was sich bei Vollbild über die Steuerelemente auf der rechten Seite schiebt, aber leider hatte das nicht funktioniert und ich habe sie wieder entfernt (der Standart wird wieder genutzt).
+Nach einem Reinstall in einem win32 wineprefix habe ich versucht ob das Hinzufügen der Phymex Executables (unter "~/.wine/drive_c/PHYMEX") und das setzten von anderen Windows Versionen für diese (Standart auf Windows 7 gelassen, hatte Windows 2000, 98 und 95 für Phymex) einen Unterschied bezüglich des grauen Bandes macht, was sich bei Vollbild über die Steuerelemente auf der rechten Seite schiebt, aber leider hatte das nicht funktioniert und ich habe sie wieder entfernt (der Standart wird wieder genutzt).
 
 Was jedoch funktioniert hat war im Grafik-Register von winecfg den virtuellen Bildschirm aktivieren und die Desktop-Größe auf 1339 x 836 zu setzen. Die Desktop-Größe habe ich durch Versuche herausgefunden und funktionieren am besten mit Phymex und der Auflösung von dem Laptop. Die zusätzliche Fenster-Leiste oben bekommt man leider durch deaktivieren der Optionen "Erlaube dem Fenstermanager die Fenster zu dekorieren" bzw. "Erlaube dem Fenstermanager die Fenster zu kontrollieren" nicht weg.
 
@@ -298,6 +299,27 @@ Die Categories wurden aus einer vordefinierten Liste in der Desktop Menu Specifi
 Die Keywords wurden frei gewählt und sind haupsächlich dazu da, dass man das Programm in der Suche im Application Menu besser findet.  
 Ein Icon kann aus der Exe-Datei extrahiert oder manuell gezeichnet werden.
 Um einen Icon für Phymex zu extrahieren, installiert man icoutils mit `sudo apt install icoutils`. Man extrahiert dann den Icon mit `wrestool -x --output=. -t14 ~/.wine/drive_c/PHYMEX/PHYMEX1.EXE` und konvertiert in mit `icotool -x PHYMEX1.EXE_14_1.ico` zu einer PNG-Datei. Um diesen Schritt abzuschließen verschiebt man nun noch die PNG: `mv PHYMEX1.EXE_14_1_1_32x32x4.png ~/.local/share/icons/hicolor/32x32/apps/Phymex.png`.
+
+Damit Phymex später in dem "Mit anderer Anwednung öffnen"-Menü erscheint erstellt man am besten einen weiteren Desktop-Eintrag:
+~/.local/share/applications/wine-extension-php_phi_phx.desktop
+
+    [Desktop Entry]
+    Type=Application
+    Name=Phymex
+    Icon=Phymex
+    MimeType=application/octet-stream;application/x-php;
+    Exec=env WINEPREFIX="/home/phybox/.wine" wine start /unix /home/phybox/.wine/dosdevices/c:/PHYMEX/PHYMEX1.EXE Z:%f
+    NoDisplay=true
+    StartupNotify=true
+
+Phymex erstellt beim speichern drei Dateien, \*.PHI und \*.PHX von dem Mime-Typ application/octet-stream und eine \*.PHP Datei mit Mime-Typ application/x-php.
+
+ > Bezüglich `Z:%f` fand ich den folgenden Forum-Thread nützlich: https://ubuntuforums.org/showthread.php?t=749684&s=e452398ab46f430a5280865d0f848f0a
+
+ > Ich habe mit verschiedenen Wegen rumexperimentiert, dass man auch per Drag-and-Drop Dateien mit dem Desktop-Icon anzeigen kann.
+ > Mein vielversprechendster Versuch war der folgende:
+ > `bash -c env WINEPREFIX="/home/phybox/.wine"; file=%f; if [[ -z $file ]] ; then wine /home/phybox/.wine/dosdevices/c:/PHYMEX/PHYMEX1.EXE ; else wine /home/phybox/.wine/dosdevices/c:/PHYMEX/PHYMEX1.EXE Z:$file ; fi`
+ > Im Terminal funktionierte dies, nur nicht in dem Desktop-Eintrag. Man könnte es jedoch in eine separate Shell-Datei schreiben und nur den bash Befehl mit der Shell-Datei angeben.
 
 
 In diesem Schritt werden zwei Ordner und mehrere Softlinks zu Desktop-Einträgen angelegt, damit die Dateien nicht mehrmals existieren (falls man sie später editieren möchte):  
