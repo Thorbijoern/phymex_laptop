@@ -32,3 +32,16 @@
 
 classpad manager:
  mathelehrerin meinte es ist gefährlich unter linux, könnte classpad bricken?
+
+
+
+    
+    #~/Documents/Dokumentation_zu_diesem_Laptop.desktop
+    # könnte nur softlink in ~/Documents sein
+    [DesktopEntry]
+    Type=Link
+    Version=1.1
+    Name=Dokumentation zu diesem Laptop
+    Comment=Dies ist die Dokumentation zum Setup dieses Laptops, auf Github.
+    # Icon= ?
+    URL=https://github.com/Thorbijoern/phymex_laptop
