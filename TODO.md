@@ -2,16 +2,13 @@
 
  - Doku
    - Link/Verknüpfung zu dieser Doku auf GitHub in den Documents Ordner
-   - Doku sortieren
-   - Doku auf Deutsch + Englisch?
    - Mehr beschreiben, teilwese umschreiben
-     - Links zu infos
-   - die gesicherten bash_history dateien nach wichtigen zu dokumentierenden sachen durchsuchen bzw. löschen
    - Zielstellung, was funktioniert, was funktioniert nicht
    - zeit die ich dran gearbeitet habe
    - doku (vlt. in rst umschreiben?) mit sphynx convertieren
    - Wine statt wine, Phymex statt PhyMex und Phybox statt PhyBox
    - zu CC lizenz wechseln
+   - "Diese Dokumentation wurde mit Sphinx generiert..."
  - suche in firefox vlt. wieder ändern
  - unterschied Phymex1.exe und Phymexma.exe
    - anschauen Verknüpfung
@@ -28,7 +25,6 @@
  - firefox daten löschen
  - firefox bookmarks
  - icon für phymex
- - "Diese Dokumentation wurde mit Sphinx generiert..."
 
 
 classpad manager:
