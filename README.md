@@ -52,6 +52,9 @@ Folgend sind alle Einstallungen, die ich während der Installation vorgenommen h
 Sprache: German - Deutsch  
 Standort: Deutschland  
 Tastatur: Deutsch  
+
+An diesem Punkt erscheint wahrscheinlich eine Meldung, die fragt, ob die fehlenden WLAN-Treiber von einem anderen Medium gelesen werden sollten. Ich habe Nein ausgewählt.
+
 Rechnername (Hostname): phybox-laptop  
 Domainname:
 
@@ -122,7 +125,7 @@ wine ist in den Debian Paketquellen irre veraltet, wie ich in meinem ersten Test
 Auf https://wiki.winehq.org/Debian ist eine vollständige Anleitung (Englisch) zum installieren von wine auf Debian.
 Hier nur eine kurze Anleitung mit den Schritten, die ich unternahm:
 
-`sudo dpkg --add-architecture i386` um 32 bit Pakete zu erlauben  
+`sudo dpkg --add-architecture i386` um 32 bit Pakete zu erlauben,  
 den Key, der benutzt wird um die Pakete zu signieren runterladen `wget -nc https://dl.winehq.org/wine-builds/Release.key` und hinzufügen `sudo apt-key add Release.key`  
 eine wine.list erstellen `sudo nano /etc/apt/sources.list.d/wine.list` und in diese `deb https://dl.winehq.org/wine-builds/debian/ stretch main` schreiben  
  > `stretch` gilt nur für Debian 9.x, da diese Verion den Alias "stretch" hat, für andere Versionen kann man den Alias in der Einstellungen-GUI unter Details in Klammern bei "Basissystem" finden.
@@ -135,14 +138,15 @@ falls man noch altes wine installiert hat sollte man folgendes ausführen:
 
 Am besten installiert man die stable (winehq-stable) Version mit den vorgeschlagenen Paketen (--install-recommends):
 
-    sudo apt install --install-recommends winehq-stable
+    sudo apt install -y --install-recommends winehq-stable
 Nun hat man die neuste, stabile wine Version und kann die gewünschten Programme in wine installieren.
 
-Für Office (und andere wine-Funktionen) sollte man noch winbind (Teil von samba) mit `sudo apt install winbind` installieren.
+Für Office (und andere wine-Funktionen) sollte man noch winbind (Teil von samba) mit `sudo apt install -y winbind` installieren.
 
 Zum Schluss sollte man noch einen normalen wineprefix mit `winecfg` erstellen. Wenn man winecfg ausführt wird ein neues Verzeichnis ~/.wine erstellt und darin die Konfiguration gespeichert.
-winecfg wird wahrscheinlich danach fragen, ob man wine-mono und wine-gecko installieren möhcte (falls diese noch nicht installiert sind) und man sollte sie installieren.
-Das Fenster "wine-Konfiguration kann man dann erstmal schließen.
+winecfg wird wahrscheinlich danach fragen, ob man wine-mono und wine-gecko installieren möchte (falls diese noch nicht installiert sind) und man sollte sie installieren.
+Das winecfg Fenster ("wine-Konfiguration") kann man dann erstmal schließen.
+Mit `rm Release.key` kann man die Key-Datei von wine löschen.
 
 
 ## Microsoft Office
@@ -155,9 +159,10 @@ Hierzu siehe:
 https://appdb.winehq.org/objectManager.php?sClass=version&iId=4992 unter HOWTO, sowie  
 https://wiki.winehq.org/FAQ#How_do_I_create_a_32_bit_wineprefix_on_a_64_bi_system.3F
 
-Um das 32bit wineprefix zu erstellen führt man folgendes aus:  
-`WINEARCH=win32 WINEPREFIX=~/.wine_office winecfg`
-Dies wird nun den neuen wineprefix für Office mit einer Konfiguraion erstellen.
+Um das 32bit wineprefix zu erstellen führt man folgendes aus:
+
+    WINEARCH=win32 WINEPREFIX=~/.wine_office winecfg
+Dies wird nun den neuen wineprefix für Office mit einer Konfiguration erstellen.
 > Möchte man Office unter Windows XP laufen haben wählt man in dem Fenster (winecfg, "wine-Konfiguration"), welches sich öffnet, nun in der Liste im "Anwendungen"-Register die Standardeinstellungen aus und setzt die Windows-Version auf Windows XP. Ansonsten kann man es auf Windows 7 belassen.
 
 Da wir nun einen neuen wineprefix erstellt haben, muss dieser jedes mal angegeben werden, wenn man diesen oder in ihm installierte Programme nutzen möchte.  
@@ -173,9 +178,10 @@ Man folgt nun einfach dem Installer wie auch auf Windows.
 Nachdem Office nun installiert ist muss man nun winecfg (mit `WINEPREFIX=~/.wine_office winecfg`) erneut starten. In dem Register "Bibliotheken" fügt man eine neue Überschreibung für riched20 hinzu. Man tippt `riched20` in das Feld "Neue Überscheibung für:" ein bzw. wählt es aus und klickt "Hinzufügen". Es sollte nun `riched20 (Native, Buildin)` in der Liste stehen. Ist dies nicht der Fall wählt man riched20 aus, klickt auf "Bearbeiten" und stellt sicher, dass "Native dann Buildin" ausgewählt ist.
 Diese Überschreibung konfiguriert wine so, dass Office seine eigene riched20.dll nutzen kann.
 
-Die Programme sind nun unter `"~/.wine_office/drive_c/Program Files/Microsoft Office/Office12/"` als WINWORD.EXE, EXCEL.EXE und POWERPNT.EXE installiert und könnten mit `wine`, `wineconsole` oder `wine start` ausgeführt werden (man muss jeweils den wineprefix angeben).
+Die Programme sind nun unter `"~/.wine_office/drive_c/Program Files/Microsoft Office/Office12/"` als WINWORD.EXE, EXCEL.EXE und POWERPNT.EXE installiert und könnten mit `wine` ausgeführt werden (man muss den wineprefix angeben).
 
-Man sollte Word ein mal starten, bevor man Office anfängt wirklich zu nutzen. Dafür kann man den Befehl `WINEPREFIX=~/.wine_office wine "~/.wine_office/drive_c/Program Files/Microsoft Office/Office12/WINWORD.EXE"` nutzen.
+Man sollte Word ein mal starten, bevor man Office anfängt wirklich zu nutzen. Dafür kann man den Befehl `WINEPREFIX=~/.wine_office wine "~/.wine_office/drive_c/Program Files/Microsoft Office/Office12/WINWORD.EXE"` nutzen.  
+Windows Update gibt es in Wine keines, weswegen Automatische Updates nicht funktionieren.
 
 ### Tests:
 Während der Tests habe ich je eine Word, Excel und Powerpoint Datei erstellt und in den Dateieigenschaften von Debian/Gnome eingestellt, diese standartmäßig mit dem jeweiligen Office-Program zu öffnen.
@@ -199,7 +205,7 @@ Phymex kann man nun mit `wine ~/.wine/drive_c/PHYMEX/PHYMEX1.EXE` starten.
 ### Phymex wine Einstellungen
 Nach einem Reinstall in einem win32 wineprefix habe ich versucht ob das Hinzufügen der Phymex Executables (unter "~/.wine/drive_c/PHYMEX") und das setzten von anderen Windows Versionen für diese (Standart auf Windows 7 gelassen, hatte Windows 2000, 98 und 95 für Phymex) einen Unterschied bezüglich des grauen Bandes macht, was sich bei Vollbild über die Steuerelemente auf der rechten Seite schiebt, aber leider hatte das nicht funktioniert und ich habe sie wieder entfernt (der Standart wird wieder genutzt).
 
-Was jedoch funktioniert hat war im Grafik-Register von winecfg den virtuellen Bildschirm aktivieren und die Desktop-Größe auf 1339 x 836 zu setzen. Die Desktop-Größe habe ich durch Versuche herausgefunden und funktionieren am besten mit Phymex und der Auflösung von dem Laptop. Die zusätzliche Fenster-Leiste oben bekommt man leider durch deaktivieren der Optionen "Erlaube dem Fenstermanager die Fenster zu dekorieren" bzw. "Erlaube dem Fenstermanager die Fenster zu kontrollieren" nicht weg.
+Was jedoch funktioniert hat war im Grafik-Register von winecfg den virtuellen Bildschirm aktivieren und die Desktop-Größe auf 1339 x 803 (836 ohne Window list) zu setzen. Die Desktop-Größe habe ich durch Versuche herausgefunden und funktioniert am besten mit Phymex und der Auflösung von dem Laptop. Die zusätzliche Fenster-Leiste oben bekommt man leider durch deaktivieren der Optionen "Erlaube dem Fenstermanager die Fenster zu dekorieren" bzw. "Erlaube dem Fenstermanager die Fenster zu kontrollieren" nicht weg.
 
 
 ## Weitere Einstellungen
@@ -208,6 +214,7 @@ Einstellungen in der "Einstellungen"-GUI:
 Maus und Tastfeld:
  - Tastfeld
     - Bildlauf am Rand: An
+    - Drücken zum Klicken: An
 Hintergrund:
  - anderen Hintergrund und Sperrbildschirm auswählen
 
@@ -236,21 +243,17 @@ Obere Leiste
 
 
 ### Desktop Einträge
-Mit dem in wine integrierten Tool `winemenubuilder` lassen sich Einträge in das Gnome Application Menu erstellen. Jedoch funktioniert dies nur automatisch für die Microsoft Office Programme, da diese von dem Installer in die wine-/Windows-Registry eingetragen wurden. Für Phymex müssen manuell Einträge erstellt werden.
+Mit dem in wine integrierten Tool `winemenubuilder` (man braucht es nicht manuell ausführen) lassen sich Einträge in das Gnome Application Menu erstellen. Jedoch funktioniert dies nur automatisch für die Microsoft Office Programme, da diese von dem Installer in die wine-/Windows-Registry eingetragen wurden. Für Phymex müssen manuell Einträge erstellt werden.
 
 Gnome folgt den Standarts von freedesktop.org (ehemals X Desktop Group, kurz XDG) und folgt für Desktop Einträge bzw. Einträge ins Appliction Menu der [Desktop Menu Specification](https://specifications.freedesktop.org/menu-spec/menu-spec-latest.html) und der [Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html).
 
-Die Menü Einträge für Office sollten von wine automatisch erstellt werden, aber man kann auch `WINEPREFIX=~/.wine_office wine winemenubuilder` manuell ausführen.  
+Die Menü Einträge für Office sollten von wine automatisch erstellt werden.
 winemenubuilder erstellt u.a. in den folgenden Ordnern Einträge:
  - `~/.config/menus/applications-merged/` .menu einträge
  - `~/.local/share/desktop-directories/` .directory einträge
  - `~/.local/share/applications` .desktop einträge
  - `~/.local/share/icons` icons für die programme
 Die Einträge, die wine vornimmt, sind nur für den jeweiligen Benutzer, genau so wie die wineprefixe.
-
-Der Desktop Eintrag für Phymex würde wie folgt aussehen:
-
-Man kann dies als Phymex.desktop unter `/usr/share/applications/Phybox/Phymex.desktop` mit dem Texteditor nano anlegen.
 
 Im folgenden sind die Schritte, die man durchführen muss knapp erklärt. Wo bloß ein Pfad mit einem Codesnipsel angegeben ist erstellt man diese Datei mit dem Codesnipsel als Inhalt, z.B. mit dem Editor nano. Möchte man in den folgenden Schritten die Änderungen sehen, muss man sich u.U. abmelden und neu anmelden.
 
@@ -278,6 +281,7 @@ Erstellen von ein paar Dateien:
 
 
 Einen Ordner erstellen: `mkdir ~/.local/share/applications/wine/Programs/Phymex/`  
+und den Desktop-Eintrag für Phymex erstellen:  
 ~/.local/share/applications/wine/Programs/Phymex/Phymex.desktop
 
     [Desktop Entry]
@@ -408,13 +412,30 @@ und macht diese ausführbar:
 `chmod ug+x ~/Schreibtisch/*`  
 Um das abzuschließen sollte man auf den Schreibtisch klicken, F5 drücken und alle Programme über ihre Links auf dem Schreibtisch ein mal starten und mit "Vertrauen und ausführen" bestätigen.
 
+Zu guter Letzt habe Ich noch einen Desktop-Eintrag als Link in dem ~/Dokumente Ordner erstellt:  
+"~/Dokumente/Dokumentation zu diesem Laptop.desktop"
+    [DesktopEntry]
+    Type=Link
+    Version=1.1
+    Name=Dokumentation zu diesem Laptop
+    Comment=Dies ist ein Link zu der Dokumentation zum Setup dieses Laptops auf Github.
+    URL=https://github.com/Thorbijoern/phymex_laptop
+
 
 ### Nachbereitungen
 `apt remove icoutils
-Mit `sudo apt autoremove` überflüssig gewordene Programme deinstallieren
+Mit `sudo apt autoremove` überflüssig gewordene Programme deinstallieren.
+
+Ich habe in Firefox noch verschiedene nützliche Webseiten zur Phybox (siehe Weitere Informationen) als Lesezeichen in einen Ordner Namens `Phybox/Phymex` und auch noch ein Lesezeichen zu diese Dokumentation in dem Ordner für die Lesezeichen-Symbolleiste hinzugefügt.
 
 ## Weitere Ideen
  - man könnte versuchen Phymex, sowie die Phybox und die seriell gesendeten Daten zu reverse-engineeren (serielle Daten aufnehmen/mitschneiden) und eine Open-Source/Open-Hardware Phybox entwerfen, sowie ein platform-unabhängiges Open-Source Programm wie Phymex schreiben.
 
 ## Weitere Informationen zu Phymex/Phybox
 Weitere Informationen findet man unter http://didaktikchemie.uni-bayreuth.de/de/teachers/05chembox/index.html bzw. http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/ und verschiedenen veröffentlichten Dokumenten unter http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/0_download/.
+
+ - http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/dokumentation.htm
+ - http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/0_download/phybox.pdf
+ - http://www.chembox.hetz.de/news.htm
+ - http://www.chembox.hetz.de/fragen.htm
+ - http://www.chembox.hetz.de/chembox/h2-kin.htm
