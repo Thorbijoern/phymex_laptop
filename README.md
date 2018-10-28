@@ -22,7 +22,7 @@ Als Hardware stand ein Fujitsu Esprimo Mobile D9510 zur Verfügung und die Basis
 
 ### Erfolge
 Office und Phymex funktionieren erfolgreich und ich konnte sogar das Problem mit Phymex beheben, dass sich bei maximiertem Fenster eine Leiste über Steuerelemente geschoben hat und man diese dann nicht mehr nutzen konnte.  
-Ich habe einiges zur Nutzung von Wine lernen können und konnte mein Wissen zu Linux im allgemeinen etwas vertiefen und erweitern.
+Ich habe einiges zur Nutzung von wine lernen können und konnte mein Wissen zu Linux im allgemeinen etwas vertiefen und erweitern.
 
 
 ## Vorbereitung
@@ -37,11 +37,11 @@ Wenn man das Laptop neu aufsetzen möchte kann man dieses Kapitel getrost ignori
 
 Die Linux Installation hatte ich ähnlich vorgenommen wie in folgenden Kapiteln beschrieben.
 
-Aufgefallen war mir der Versionsunterschied als ich Nachforschungen angestellt habe, warum Wine nicht unter ~/.wine/dosdevices die verschiedenen seriellen Geräte anlegt. Ich hatte, einer Antwort im Internet folgend, das kleine Tool setserial installiert, was mir aber nicht half und somit im nachhinein überflüssig ist. Eines der Probleme war, dass der Benutzer, unter dem wine gestartet wird, also der, der es startet, muss die Berechtigungen erhalten um auf die seriellen Schnittstellen zugreifen zu können. Das Berechtigungskonzept von Linux löst das mit verschiedenen Gruppen, darunter die Gruppen sys und dialout. Ich habe den Benutzer beiden Gruppen hinzugefügt, aber sys wird nicht benötigt. Das zweite Problem bestand darin, dass ältere Versionen von Wine die seriellen Geräte nicht automatisch anlegten, dadurch bemerkte ich, dass ich eine alte Version von Wine nutzte.
-Wine hatte ich vorerst nur über die Debian Paketquellen installiert was sich dann nach einigen Tests als Problem rausstellte, da es in den Debian Paketquellen sehr veraltet war. Die letzte Version verfügbar in den Debian Paketquellen war 1.8.7, aber die aktuelle stabile Version (zum Zeitpunkt des Schreibens/Testens) war Wine 3.0.3.
+Aufgefallen war mir der Versionsunterschied als ich Nachforschungen angestellt habe, warum wine nicht unter ~/.wine/dosdevices die verschiedenen seriellen Geräte anlegt. Ich hatte, einer Antwort im Internet folgend, das kleine Tool setserial installiert, was mir aber nicht half und somit im nachhinein überflüssig ist. Eines der Probleme war, dass der Benutzer, unter dem wine gestartet wird, also der, der es startet, muss die Berechtigungen erhalten um auf die seriellen Schnittstellen zugreifen zu können. Das Berechtigungskonzept von Linux löst das mit verschiedenen Gruppen, darunter die Gruppen sys und dialout. Ich habe den Benutzer beiden Gruppen hinzugefügt, aber sys wird nicht benötigt. Das zweite Problem bestand darin, dass ältere Versionen von wine die seriellen Geräte nicht automatisch anlegten, dadurch bemerkte ich, dass ich eine alte Version von wine nutzte.
+wine hatte ich vorerst nur über die Debian Paketquellen installiert was sich dann nach einigen Tests als Problem rausstellte, da es in den Debian Paketquellen sehr veraltet war. Die letzte Version verfügbar in den Debian Paketquellen war 1.8.7, aber die aktuelle stabile Version (zum Zeitpunkt des Schreibens/Testens) war wine 3.0.3.
 Ich hatte dann die aktuelle Version installiert.
 
-Nachdem ich die aktuelle Version von Wine nutzte und den Benutzer zu den Gruppen hinzugefügt hatte, hatte ich zusammen mit meinem Lehrer Phymex auf wine mit der Phybox erfolgreich getestet.
+Nachdem ich die aktuelle Version von wine nutzte und den Benutzer zu den Gruppen hinzugefügt hatte, hatte ich zusammen mit meinem Lehrer Phymex auf wine mit der Phybox erfolgreich getestet.
 
 
 ## Linux
@@ -103,7 +103,7 @@ Mit `apt install sudo` installier man nun sudo um später nicht immer root nehme
 Mit`usermod -aG sudo,dialout phybox` fügt man den User phybox zu den Gruppen sudo und dialout hinzu. 
 Der User phybox benötigt die Gruppe sudo um den Befehl sudo nutzen zu dürfen und dialout ermöglicht es dem User vollen und direkten Zugriff auf die Seriellen Ports zu haben, siehe https://wiki.debian.org/SystemGroups.
  > wine benötigt später die Gruppe dialout um Zugriff auf die Seriellen Ports zu bekommen, sodass Phymex funktioniert.  
- > Mehr zu Seriellen Ports mit wine: https://wiki.winehq.org/Wine_User%27s_Guide#Serial_and_Parallel_Ports
+ > Mehr zu Seriellen Ports mit wine: https://wiki.winehq.org/wine_User%27s_Guide#Serial_and_Parallel_Ports
 
 Überprüfen kann man das nun mit `groups phybox` (sudo und dialout müssen mit aufgelistet sein).
 Mit `exit` kann man root wieder verlassen.
@@ -114,11 +114,11 @@ Für das Schulnetzwerk wird ein Proxy benötigt. Falls man sich im Schulnetzwerk
 In der "Einstellungen"-GUI, unter Netzwerk, unter Netzwerk-Proxy wählt man "Automatisch" als Methode aus und gibt dann die Konfigurationsadresse (welche man von einem anderen Schulrechner bekommen kann) ein.
 
 
-## Wine
+## wine
 ### Installation
 Nach der Installation von dem Linux habe ich wine (übersetzt Windows API calls für POSIX-Systeme) installiert:
 
-Wine ist in den Debian Paketquellen irre veraltet, wie ich in meinem ersten Test herausgefunden habe.
+wine ist in den Debian Paketquellen irre veraltet, wie ich in meinem ersten Test herausgefunden habe.
 Auf https://wiki.winehq.org/Debian ist eine vollständige Anleitung (Englisch) zum installieren von wine auf Debian.
 Hier nur eine kurze Anleitung mit den Schritten, die ich unternahm:
 
@@ -142,7 +142,7 @@ Für Office (und andere wine-Funktionen) sollte man noch winbind (Teil von samba
 
 Zum Schluss sollte man noch einen normalen wineprefix mit `winecfg` erstellen. Wenn man winecfg ausführt wird ein neues Verzeichnis ~/.wine erstellt und darin die Konfiguration gespeichert.
 winecfg wird wahrscheinlich danach fragen, ob man wine-mono und wine-gecko installieren möhcte (falls diese noch nicht installiert sind) und man sollte sie installieren.
-Das Fenster "Wine-Konfiguration kann man dann erstmal schließen.
+Das Fenster "wine-Konfiguration kann man dann erstmal schließen.
 
 
 ## Microsoft Office
@@ -158,12 +158,12 @@ https://wiki.winehq.org/FAQ#How_do_I_create_a_32_bit_wineprefix_on_a_64_bi_syste
 Um das 32bit wineprefix zu erstellen führt man folgendes aus:  
 `WINEARCH=win32 WINEPREFIX=~/.wine_office winecfg`
 Dies wird nun den neuen wineprefix für Office mit einer Konfiguraion erstellen.
-> Möchte man Office unter Windows XP laufen haben wählt man in dem Fenster (winecfg, "Wine-Konfiguration"), welches sich öffnet, nun in der Liste im "Anwendungen"-Register die Standardeinstellungen aus und setzt die Windows-Version auf Windows XP. Ansonsten kann man es auf Windows 7 belassen.
+> Möchte man Office unter Windows XP laufen haben wählt man in dem Fenster (winecfg, "wine-Konfiguration"), welches sich öffnet, nun in der Liste im "Anwendungen"-Register die Standardeinstellungen aus und setzt die Windows-Version auf Windows XP. Ansonsten kann man es auf Windows 7 belassen.
 
 Da wir nun einen neuen wineprefix erstellt haben, muss dieser jedes mal angegeben werden, wenn man diesen oder in ihm installierte Programme nutzen möchte.  
 Mehr informationen zu wineprefix findet man hier:  
-https://wiki.winehq.org/Wine_User%27s_Guide#WINEPREFIX  
-https://wiki.winehq.org/FAQ#Wineprefixes
+https://wiki.winehq.org/wine_User%27s_Guide#WINEPREFIX  
+https://wiki.winehq.org/FAQ#wineprefixes
 
 Um nun Office zu installieren geht man in das Verzeichnis mit den Installationsdateien und führt `WINEPREFIX=~/.wine_office wine SETUP.EXE` aus oder gibt den kompletten Pfad an, z.B. `WINEPREFIX=~/.wine_office wine /media/phybox/USB-STICK/Office2007/SETUP.EXE`
 Man folgt nun einfach dem Installer wie auch auf Windows.
@@ -173,7 +173,7 @@ Man folgt nun einfach dem Installer wie auch auf Windows.
 Nachdem Office nun installiert ist muss man nun winecfg (mit `WINEPREFIX=~/.wine_office winecfg`) erneut starten. In dem Register "Bibliotheken" fügt man eine neue Überschreibung für riched20 hinzu. Man tippt `riched20` in das Feld "Neue Überscheibung für:" ein bzw. wählt es aus und klickt "Hinzufügen". Es sollte nun `riched20 (Native, Buildin)` in der Liste stehen. Ist dies nicht der Fall wählt man riched20 aus, klickt auf "Bearbeiten" und stellt sicher, dass "Native dann Buildin" ausgewählt ist.
 Diese Überschreibung konfiguriert wine so, dass Office seine eigene riched20.dll nutzen kann.
 
-Die Programme sind nun unter `"~/.wine_office/drive_c/Program Files/Microsoft Office/Office12/"` als WINWORD.EXE, EXCEL.EXE und POWERPNT.EXE installiert und könnten mit wine, wineconsole oder wine start ausgeführt werden (man muss jeweils den wineprefix angeben).
+Die Programme sind nun unter `"~/.wine_office/drive_c/Program Files/Microsoft Office/Office12/"` als WINWORD.EXE, EXCEL.EXE und POWERPNT.EXE installiert und könnten mit `wine`, `wineconsole` oder `wine start` ausgeführt werden (man muss jeweils den wineprefix angeben).
 
 Man sollte Word ein mal starten, bevor man Office anfängt wirklich zu nutzen. Dafür kann man den Befehl `WINEPREFIX=~/.wine_office wine "~/.wine_office/drive_c/Program Files/Microsoft Office/Office12/WINWORD.EXE"` nutzen.
 
@@ -236,12 +236,12 @@ Obere Leiste
 
 
 ### Desktop Einträge
-Mit dem in wine integrierten Tool `winemenubuilder` lassen sich Einträge in das Gnome Application Menu erstellen. Jedoch funktioniert dies nur automatisch für die Microsoft Office Programme, da diese von dem Installer in die Wine-/Windows-Registry eingetragen wurden. Für Phymex müssen manuell Einträge erstellt werden.
+Mit dem in wine integrierten Tool `winemenubuilder` lassen sich Einträge in das Gnome Application Menu erstellen. Jedoch funktioniert dies nur automatisch für die Microsoft Office Programme, da diese von dem Installer in die wine-/Windows-Registry eingetragen wurden. Für Phymex müssen manuell Einträge erstellt werden.
 
 Gnome folgt den Standarts von freedesktop.org (ehemals X Desktop Group, kurz XDG) und folgt für Desktop Einträge bzw. Einträge ins Appliction Menu der [Desktop Menu Specification](https://specifications.freedesktop.org/menu-spec/menu-spec-latest.html) und der [Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html).
 
 Die Menü Einträge für Office sollten von wine automatisch erstellt werden, aber man kann auch `WINEPREFIX=~/.wine_office wine winemenubuilder` manuell ausführen.  
-Winemenubuilder erstellt u.a. in den folgenden Ordnern Einträge:
+winemenubuilder erstellt u.a. in den folgenden Ordnern Einträge:
  - `~/.config/menus/applications-merged/` .menu einträge
  - `~/.local/share/desktop-directories/` .directory einträge
  - `~/.local/share/applications` .desktop einträge
