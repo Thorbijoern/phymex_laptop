@@ -5,11 +5,11 @@ Diese Dokumentation ist unter der XXXXX Lizenz auf Github veröffentlicht: https
 In diesem Dokument beschreibe ich die Schritte, die ich zum Aufsetzen eines Laptops vorgenommen habe.  
 Das Laptop soll dem Physik-Unterricht dienen und soll, u.a. wegen Sicherheitsbedenken, ein anderes Laptop mit Windows XP ersetzen.  
 Dieses Laptop wird hauptsächlich in Verbindung mit Phymex genutzt. Dies ist eine Software die es ermöglicht, mit Hilfe der zugehörigen Phybox, Messdaten von z.B. Experimenten aufzunehmen und diese grafisch darzustellen. Die Datenübertragung zwischen Phymex, bzw. dem Computer auf dem Phymex läuft, und der Phybox geschieht durch eine serielle Schnittstelle, in diesem Fall eine RS-232 Schnittstelle über einen 9-poligen D-Sub COM-Port an dem Laptop.  
-Weitere Informationen kann man dem folgenden von der Uni-Bayreuth veröffentlichten Dokument entnehmen:
-http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/0_download/phybox.pdf
+Weitere Informationen kann man dem folgenden von der Uni-Bayreuth veröffentlichten Dokument entnehmen:  
+[http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/0_download/phybox.pdf]
 
-Um die Nutzung dem Fachlehrer etwas einfacher zu machen wird zusätzlich Microsoft Office 2007 installiert, damit schon bestehende Dokumente problemlos genutzt werden können. (Zusätzlich zu MS Office steht noch LibreOffice zur Verfügung.)
-Zudem hat sich der Fachlehrer einen Webbrowser gewünscht. Dafür wird Firefox genutzt, welcher schon bei der Debian Desktopoberfläche/Gnome vorinstalliert ist.
+Um die Nutzung dem Fachlehrer etwas einfacher zu machen wird zusätzlich Microsoft Office 2007 installiert, damit schon bestehende Dokumente problemlos genutzt werden können (Zusätzlich zu MS Office steht noch LibreOffice zur Verfügung).
+Zudem hat sich der Fachlehrer einen Webbrowser gewünscht. Dafür wird Firefox genutzt, welcher schon bei der Debian Desktopoberfläche/Gnome vorinstalliert ist.  
 Eine Windows-Domain/Active Directory integration war für den Fachlehrer nicht nötig.
 
 Als Hardware stand ein Fujitsu Esprimo Mobile D9510 zur Verfügung und die Basis bildet die GNU/Linux Distribution Debian 9 alias "stretch".
@@ -17,11 +17,11 @@ Als Hardware stand ein Fujitsu Esprimo Mobile D9510 zur Verfügung und die Basis
 ## Ergebnis
 ### Anmerkungen/Known Limitations/Problems
  - Der integrierte WLAN (und Bluetooth) Adapter benötigt nicht-freie Treiber, die ich nicht finden konnte. Dies ist jedoch kaum ein Problem, da die Schule eh kein WLAN zur Verfügung stellt.
- - Um die Programme etwas einfacher verwalten zu können hätte man PlayOnLinux benutzen können.
+ - PlayOnLinux bietet eine einfachere Möglichkeit Programme in wine zu installieren und zu verwalten, hat aber auch Probleme und Limitationen.
 
 
 ### Erfolge
-Office und Phymex funktionieren erfolgreich und ich konnte sogar das Problem mit Phymex beheben, dass 
+Office und Phymex funktionieren erfolgreich und ich konnte sogar das Problem mit Phymex beheben, dass sich bei maximiertem Fenster eine Leiste über Steuerelemente geschoben hat und man diese dann nicht mehr nutzen konnte.  
 Ich habe einiges zur Nutzung von Wine lernen können und konnte mein Wissen zu Linux im allgemeinen etwas vertiefen und erweitern.
 
 
