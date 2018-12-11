@@ -9,7 +9,12 @@
    - richtige verweise (siehe ...) einfügen
  - unterschied Phymex1.exe und Phymexma.exe
    - anschauen Verknüpfung
+   - Phymex1.exe ist richtig
  - classpad manager installieren?
+   - physiklehrer hatte es schon versucht
+   - startet nicht richtig
+ - Phymex hat probleme mit den schriftarten, eine schriftart zu klein (in der einen Anzeige)
+ - audio probleme (zu leise/aus)
 
 classpad manager:
 
