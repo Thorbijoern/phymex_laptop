@@ -13,10 +13,6 @@
  - classpad manager installieren?
    - physiklehrer hatte es schon versucht
    - startet nicht richtig
+   - mathelehrerin meinte es ist gefährlich unter linux, könnte classpad bricken?
  - Phymex hat probleme mit den schriftarten, eine schriftart zu klein (in der einen Anzeige)
  - audio probleme (zu leise/aus)
-
-classpad manager:
-
-    mathelehrerin meinte es ist gefährlich unter linux, könnte classpad bricken?
-
