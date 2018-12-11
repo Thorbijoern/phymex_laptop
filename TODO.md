@@ -15,4 +15,5 @@
    - startet nicht richtig
    - mathelehrerin meinte es ist gefährlich unter linux, könnte classpad bricken?
  - Phymex hat probleme mit den schriftarten, eine schriftart zu klein (in der einen Anzeige)
+   - apt install ttf-mscorefonts-installer
  - audio probleme (zu leise/aus)
