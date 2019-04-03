@@ -1,12 +1,12 @@
 # phymex_laptop
-Diese Dokumentation ist unter der Creative Commons Attribution 4.0 International License auf Github veröffentlicht: [https://github.com/Thorbijoern/phymex_laptop]
+Diese Dokumentation ist unter der Creative Commons Attribution 4.0 International License auf Github veröffentlicht: https://github.com/Thorbijoern/phymex_laptop
 
 ## Aufgabe / Zielsetzung
 In diesem Dokument beschreibe ich die Schritte, die ich zum Aufsetzen eines Laptops vorgenommen habe.  
 Das Laptop soll dem Physik-Unterricht dienen und soll, u.a. wegen Sicherheitsbedenken, ein anderes Laptop mit Windows XP ersetzen.  
 Dieses Laptop wird hauptsächlich in Verbindung mit Phymex genutzt. Dies ist eine Software die es ermöglicht, mit Hilfe der zugehörigen Phybox, Messdaten von z.B. Experimenten aufzunehmen und diese grafisch darzustellen. Die Datenübertragung zwischen Phymex, bzw. dem Computer auf dem Phymex läuft, und der Phybox geschieht durch eine serielle Schnittstelle, in diesem Fall eine RS-232 Schnittstelle über einen 9-poligen D-Sub COM-Port an dem Laptop.  
 Weitere Informationen kann man dem folgenden von der Uni-Bayreuth veröffentlichten Dokument entnehmen:  
-[http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/0_download/phybox.pdf]
+http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/0_download/phybox.pdf
 
 Um die Nutzung dem Fachlehrer etwas einfacher zu machen wird zusätzlich Microsoft Office 2007 installiert, damit schon bestehende Dokumente problemlos genutzt werden können (Zusätzlich zu MS Office steht noch LibreOffice zur Verfügung).
 Zudem hat sich der Fachlehrer einen Webbrowser gewünscht. Dafür wird Firefox genutzt, welcher schon bei der Debian Desktopoberfläche/Gnome vorinstalliert ist.  
@@ -310,7 +310,7 @@ Damit Phymex später in dem "Mit anderer Anwednung öffnen"-Menü erscheint muss
 
 Phymex erstellt beim speichern drei Dateien, \*.PHI und \*.PHX von dem Mime-Typ application/octet-stream und eine \*.PHP Datei mit Mime-Typ application/x-php.
 
- > Bezüglich `Z:%f` fand ich den folgenden Forum-Thread nützlich: [https://ubuntuforums.org/showthread.php?t=749684&s=e452398ab46f430a5280865d0f848f0a]
+ > Bezüglich `Z:%f` fand ich den folgenden Forum-Thread nützlich: https://ubuntuforums.org/showthread.php?t=749684&s=e452398ab46f430a5280865d0f848f0a
 
  > Ich habe mit verschiedenen Wegen rumexperimentiert, dass man auch per Drag-and-Drop Dateien mit dem Desktop-Icon anzeigen kann.
  > Mein vielversprechendster Versuch war der folgende:
@@ -406,7 +406,8 @@ Um das abzuschließen sollte man auf den Schreibtisch klicken, F5 drücken und a
 Am besten legt man auch noch mit Phymex eine Test-Datei an und wählt in den Datei-Eigenschaften im Register "Öffnen mit" Phymex als Vorgabe.
 
 Zu guter Letzt habe Ich noch einen Desktop-Eintrag als Link in dem `~/Dokumente` Ordner erstellt:  
-`"~/Dokumente/Dokumentation zu diesem Laptop.desktop"`
+"~/Dokumente/Dokumentation zu diesem Laptop.desktop"
+
     [DesktopEntry]
     Type=Link
     Version=1.1
@@ -439,7 +440,8 @@ Man kann verschiedene Tools nutzen um die Einstellungen der Audiogeräte anzuseh
 und weitere
  
 Der Ton funktioniert nur mit den eingebauten Lautsprechern richtig. Mit alsamixer habe ich herausgefunden, dass beim Einstecken von Lautsprechern oder Kopfhörern in die Audio-Out/Kopfhörer-Buchse des Laptop, auch die Master-Lautstärke auf 0 gesetzt bzw. gemutet wird. Das Problem liegt darin, dass jeglicher Ton leise/aus ist, wenn die Master-Lautstärke niedrig ist, nicht nur die Lautstärke für einen gewissen Ausgang (z.B. Intern oder Kopfhörer).
-> Dafür muss man in alsamixer mit F6 und den Pfeiltasten die Soundkarte "HDA Intel PCH" oder "Intel HDA" auswählen.  
+> In alsamixer muss man mit F6 und den Pfeiltasten die Soundkarte "HDA Intel PCH" oder "Intel HDA" auswählen.
+
 In den Syslogs findet man keine Probleme bzw. Fehlermeldungen. Es scheint einfach nur eine Konfiguration nicht ganz zu der verbauten Soundkarte des verwendeten Laptops zu passen oder es muss vielleicht eine andere Soundkarte konfiguriert werden. Die Zeit (ein weiteres Wochenende) reichte aber nicht aus, dass ich den Fehler genau identifizieren und beheben konnte.
 
 
