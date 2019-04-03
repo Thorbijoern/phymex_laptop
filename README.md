@@ -1,5 +1,5 @@
 # phymex_laptop
-Diese Dokumentation ist unter der XXXXX Lizenz auf Github veröffentlicht: https://github.com/Thorbijoern/phymex_laptop
+Diese Dokumentation ist unter der Creative Commons Attribution 4.0 International License auf Github veröffentlicht: [https://github.com/Thorbijoern/phymex_laptop]
 
 ## Aufgabe / Zielsetzung
 In diesem Dokument beschreibe ich die Schritte, die ich zum Aufsetzen eines Laptops vorgenommen habe.  
@@ -13,17 +13,6 @@ Zudem hat sich der Fachlehrer einen Webbrowser gewünscht. Dafür wird Firefox g
 Eine Windows-Domain/Active Directory integration war für den Fachlehrer nicht nötig.
 
 Als Hardware stand ein Fujitsu Esprimo Mobile D9510 zur Verfügung und die Basis bildet die GNU/Linux Distribution Debian 9 alias "stretch".
-
-## Ergebnis
-### Anmerkungen/Known Limitations/Problems
- - Der integrierte WLAN (und Bluetooth) Adapter benötigt nicht-freie Treiber, die ich nicht finden konnte. Dies ist jedoch kaum ein Problem, da die Schule eh kein WLAN zur Verfügung stellt.
- - PlayOnLinux bietet eine einfachere Möglichkeit Programme in wine zu installieren und zu verwalten, hat aber auch Probleme und Limitationen.
-
-
-### Erfolge
-Office und Phymex funktionieren erfolgreich und ich konnte sogar das Problem mit Phymex beheben, dass sich bei maximiertem Fenster eine Leiste über Steuerelemente geschoben hat und man diese dann nicht mehr nutzen konnte.  
-Ich habe einiges zur Nutzung von wine lernen können und konnte mein Wissen zu Linux im allgemeinen etwas vertiefen und erweitern.
-
 
 ## Vorbereitung
 Es war noch ein unaktiviertes (keine Lizens) Windows 7 auf dem Laptop zu Testzwecken oder so installiert.
@@ -183,6 +172,8 @@ Die Programme sind nun unter `"~/.wine_office/drive_c/Program Files/Microsoft Of
 Man sollte Word ein mal starten, bevor man Office anfängt wirklich zu nutzen. Dafür kann man den Befehl `WINEPREFIX=~/.wine_office wine "~/.wine_office/drive_c/Program Files/Microsoft Office/Office12/WINWORD.EXE"` nutzen.  
 Windows Update gibt es in Wine keines, weswegen Automatische Updates nicht funktionieren.
 
+Am besten erstellt man jeweils mit Word, Excel und PowerPoint eine Test-Datei und legt in den Datei-Eigenschaften (im Datei-Browser) im Register "Öffnen mit" das jeweilige MS-Office Programm als Vorgabe fest. Danach kann man die Dateien zum Test noch mal öffnen.
+
 ### Tests:
 Während der Tests habe ich je eine Word, Excel und Powerpoint Datei erstellt und in den Dateieigenschaften von Debian/Gnome eingestellt, diese standartmäßig mit dem jeweiligen Office-Program zu öffnen.
 
@@ -200,10 +191,11 @@ Ich habe Deutsch als Sprache gewählt und den Standard Installationspfad genutzt
 Das am Ende noch offene kleine Fenster (Entpacker) kann man einfach schließen, die Warnung die beim Schließen angezeigt wird kann ignoriert werden.
 Fehler (hauptsächlich "fixme"-Anmerkungen) die wine im Terminal ausgegeben hat kann man einfach ignorieren.  
 Phymex kann man nun mit `wine ~/.wine/drive_c/PHYMEX/PHYMEX1.EXE` starten.
+In dem Installationsordner von Phymex befindet sich zwar auch eine Anwendung Namens `PHYMEXMA.EXE`, jedoch scheint diese keinerlei Unterschiede aufzuweisen und bei einer Prüfung der Verknüpfung auf dem alten Windows-Laptop stellte sich heraus, dass diese ebenfalls auf `PHYMEX1.EXE` verweist.
 
 
 ### Phymex wine Einstellungen
-Nach einem Reinstall in einem win32 wineprefix habe ich versucht ob das Hinzufügen der Phymex Executables (unter "~/.wine/drive_c/PHYMEX") und das setzten von anderen Windows Versionen für diese (Standart auf Windows 7 gelassen, hatte Windows 2000, 98 und 95 für Phymex) einen Unterschied bezüglich des grauen Bandes macht, was sich bei Vollbild über die Steuerelemente auf der rechten Seite schiebt, aber leider hatte das nicht funktioniert und ich habe sie wieder entfernt (der Standart wird wieder genutzt).
+Nach einem Reinstall in einem win32 wineprefix habe ich versucht ob das Hinzufügen der Phymex Executables (welche unter "~/.wine/drive_c/PHYMEX" liegen) und das setzten von anderen Windows Versionen in winecfg für diese (Standart auf Windows 7 gelassen, hatte Windows 2000, 98 und 95 für Phymex) einen Unterschied bezüglich des grauen Bandes macht, was sich bei Vollbild über die Steuerelemente auf der rechten Seite schiebt, aber leider hatte das nicht funktioniert und ich habe sie wieder entfernt (der Standart wird wieder genutzt).
 
 Was jedoch funktioniert hat war im Grafik-Register von winecfg den virtuellen Bildschirm aktivieren und die Desktop-Größe auf 1339 x 803 (836 ohne Window list) zu setzen. Die Desktop-Größe habe ich durch Versuche herausgefunden und funktioniert am besten mit Phymex und der Auflösung von dem Laptop. Die zusätzliche Fenster-Leiste oben bekommt man leider durch deaktivieren der Optionen "Erlaube dem Fenstermanager die Fenster zu dekorieren" bzw. "Erlaube dem Fenstermanager die Fenster zu kontrollieren" nicht weg.
 
@@ -298,14 +290,14 @@ und den Desktop-Eintrag für Phymex erstellen:
     StartupWMClass=phymex1.exe
 
 Den Comment habe ich aus dem deutschen Prospekt zu der Phybox entnommen, welcher von der Uni-Bayreuth veröffentlich wurde.  
-Der MimeType kann aus den Eigenschaften von Phymex-Dateien gelesen werden, ist aber sehr mehrdeutig und deswegen auskommentiert.  
+Der MimeType kann aus den Eigenschaften von Phymex-Dateien gelesen werden, ist aber etwas mehrdeutig. Damit das öffnen richtig funktioniert muss man einen separaten Desktop-Eintrag erstellen, der dann aber nicht im Application Menu erscheint.
 Die Categories wurden aus einer vordefinierten Liste in der Desktop Menu Specification gewählt.  
 Die Keywords wurden frei gewählt und sind haupsächlich dazu da, dass man das Programm in der Suche im Application Menu besser findet.  
 Ein Icon kann aus der Exe-Datei extrahiert oder manuell gezeichnet werden.
-Um einen Icon für Phymex zu extrahieren, installiert man icoutils mit `sudo apt install icoutils`. Man extrahiert dann den Icon mit `wrestool -x --output=. -t14 ~/.wine/drive_c/PHYMEX/PHYMEX1.EXE` und konvertiert in mit `icotool -x PHYMEX1.EXE_14_1.ico` zu einer PNG-Datei. Um diesen Schritt abzuschließen verschiebt man nun noch die PNG: `mv PHYMEX1.EXE_14_1_1_32x32x4.png ~/.local/share/icons/hicolor/32x32/apps/Phymex.png`.
+Um einen Icon für Phymex zu extrahieren, installiert man icoutils mit `sudo apt install icoutils`. Man extrahiert dann den Icon mit `wrestool -x --output=. -t14 ~/.wine/drive_c/PHYMEX/PHYMEX1.EXE` (es wird ein Fehler ausgegeben, aber den kann man ignorieren) und konvertiert in mit `icotool -x PHYMEX1.EXE_14_1.ico` zu einer PNG-Datei. Um diesen Schritt abzuschließen verschiebt man nun noch die PNG: `mv PHYMEX1.EXE_14_1_1_32x32x4.png ~/.local/share/icons/hicolor/32x32/apps/Phymex.png` und löscht die Ico-Datei `rm PHYMEX1.EXE_14_1.ico`.
 
-Damit Phymex später in dem "Mit anderer Anwednung öffnen"-Menü erscheint erstellt man am besten einen weiteren Desktop-Eintrag:
-~/.local/share/applications/wine-extension-php_phi_phx.desktop
+Damit Phymex später in dem "Mit anderer Anwednung öffnen"-Menü erscheint muss der MimeType angegeben werden, dafür erstellt man am besten einen weiteren Desktop-Eintrag:
+`~/.local/share/applications/wine-extension-php_phi_phx.desktop`
 
     [Desktop Entry]
     Type=Application
@@ -318,7 +310,7 @@ Damit Phymex später in dem "Mit anderer Anwednung öffnen"-Menü erscheint erst
 
 Phymex erstellt beim speichern drei Dateien, \*.PHI und \*.PHX von dem Mime-Typ application/octet-stream und eine \*.PHP Datei mit Mime-Typ application/x-php.
 
- > Bezüglich `Z:%f` fand ich den folgenden Forum-Thread nützlich: https://ubuntuforums.org/showthread.php?t=749684&s=e452398ab46f430a5280865d0f848f0a
+ > Bezüglich `Z:%f` fand ich den folgenden Forum-Thread nützlich: [https://ubuntuforums.org/showthread.php?t=749684&s=e452398ab46f430a5280865d0f848f0a]
 
  > Ich habe mit verschiedenen Wegen rumexperimentiert, dass man auch per Drag-and-Drop Dateien mit dem Desktop-Icon anzeigen kann.
  > Mein vielversprechendster Versuch war der folgende:
@@ -331,13 +323,13 @@ In diesem Schritt werden zwei Ordner und mehrere Softlinks zu Desktop-Einträgen
 
 `mkdir ~/.local/share/applications/Microsoft\ Office`
 
-`ln -s~/.local/share/applications/wine/Programs/Phymex/Phymex.desktop ~/.local/share/applications/Phymex/Phymex.desktop`
+`ln -s ~/.local/share/applications/wine/Programs/Phymex/Phymex.desktop ~/.local/share/applications/Phymex/Phymex.desktop`
 
-`ln -s~/.local/share/applications/wine/Programs/Microsoft\ Office/Microsoft\ Office\ Word\ 2007.desktop ~/.local/share/applications/Microsoft\ Office/Microsoft\ Office\ Word\ 2007.desktop`
+`ln -s ~/.local/share/applications/wine/Programs/Microsoft\ Office/Microsoft\ Office\ Word\ 2007.desktop ~/.local/share/applications/Microsoft\ Office/Microsoft\ Office\ Word\ 2007.desktop`
 
-`ln -s~/.local/share/applications/wine/Programs/Microsoft\ Office/Microsoft\ Office\ Excel\ 2007.desktop ~/.local/share/applications/Microsoft\ Office/Microsoft\ Office\ Excel\ 2007.desktop`
+`ln -s ~/.local/share/applications/wine/Programs/Microsoft\ Office/Microsoft\ Office\ Excel\ 2007.desktop ~/.local/share/applications/Microsoft\ Office/Microsoft\ Office\ Excel\ 2007.desktop`
 
-`ln -s~/.local/share/applications/wine/Programs/Microsoft\ Office/Microsoft\ Office\ PowerPoint\ 2007.desktop ~/.local/share/applications/Microsoft\ Office/Microsoft\ Office\ PowerPoint\ 2007.desktop`
+`ln -s ~/.local/share/applications/wine/Programs/Microsoft\ Office/Microsoft\ Office\ PowerPoint\ 2007.desktop ~/.local/share/applications/Microsoft\ Office/Microsoft\ Office\ PowerPoint\ 2007.desktop`
 
 
 Weitere Dateien anlegen:  
@@ -407,13 +399,14 @@ Um die Berechtigungen der .desktop Datei von Firefox ändern zu können, müssen
 Zum Schluss legt man noch mit den folgenden Befehlen Softlinks auf dem Schreibtisch/Desktop an:  
 `ln -s ~/.local/share/applications/Microsoft\ Office/* ~/Schreibtisch/`  
 `ln -s ~/.local/share/applications/Phymex/Phymex.desktop ~/Schreibtisch/`  
-`ln -s ~/.local/share/applications/firefox-esr ~/Schreibtisch/`  
+`ln -s ~/.local/share/applications/firefox-esr.desktop ~/Schreibtisch/`  
 und macht diese ausführbar:
 `chmod ug+x ~/Schreibtisch/*`  
 Um das abzuschließen sollte man auf den Schreibtisch klicken, F5 drücken und alle Programme über ihre Links auf dem Schreibtisch ein mal starten und mit "Vertrauen und ausführen" bestätigen.
+Am besten legt man auch noch mit Phymex eine Test-Datei an und wählt in den Datei-Eigenschaften im Register "Öffnen mit" Phymex als Vorgabe.
 
-Zu guter Letzt habe Ich noch einen Desktop-Eintrag als Link in dem ~/Dokumente Ordner erstellt:  
-"~/Dokumente/Dokumentation zu diesem Laptop.desktop"
+Zu guter Letzt habe Ich noch einen Desktop-Eintrag als Link in dem `~/Dokumente` Ordner erstellt:  
+`"~/Dokumente/Dokumentation zu diesem Laptop.desktop"`
     [DesktopEntry]
     Type=Link
     Version=1.1
@@ -423,13 +416,46 @@ Zu guter Letzt habe Ich noch einen Desktop-Eintrag als Link in dem ~/Dokumente O
 
 
 ### Nachbereitungen
-`apt remove icoutils
-Mit `sudo apt autoremove` überflüssig gewordene Programme deinstallieren.
+Mit `apt remove icoutils` könnte man icoutils entfernen, falls man es nicht mehr benötigt.
+Mit `sudo apt autoremove` kann man noch überflüssig gewordene Pakete deinstallieren.
 
-Ich habe in Firefox noch verschiedene nützliche Webseiten zur Phybox (siehe Weitere Informationen) als Lesezeichen in einen Ordner Namens `Phybox/Phymex` und auch noch ein Lesezeichen zu diese Dokumentation in dem Ordner für die Lesezeichen-Symbolleiste hinzugefügt.
+Ich habe in Firefox noch verschiedene, nützliche Webseiten zur Phybox (siehe Weitere Informationen) als Lesezeichen in einen Ordner Namens `Phybox/Phymex` und auch noch ein Lesezeichen zu diese Dokumentation in dem Ordner für die Lesezeichen-Symbolleiste hinzugefügt.
 
-## Weitere Ideen
- - man könnte versuchen Phymex, sowie die Phybox und die seriell gesendeten Daten zu reverse-engineeren (serielle Daten aufnehmen/mitschneiden) und eine Open-Source/Open-Hardware Phybox entwerfen, sowie ein platform-unabhängiges Open-Source Programm wie Phymex schreiben.
+Dem Lehrer war bei der Benutzung aufgefallen, dass ein paar Beschriftungen in Phymex sehr klein und fast unleserlich waren. Ursache war ein fehlendes Paket mit Microsoft Windows Schriftarten, man kann dieses mit dem Befehl `apt install ttf-mscorefonts-installer` installieren.
+
+
+## Fazit
+### Known Limitations/Problems
+Der integrierte WLAN (und Bluetooth) Adapter benötigt nicht-freie Treiber, die ich nicht finden konnte. Dies ist jedoch kaum ein Problem, da die Schule eh kein WLAN zur Verfügung stellt.
+
+Dem Lehrer fiehl bei der Benutzung des Laptop das Problem auf, dass der Ton nicht zu funktionieren scheint.  
+Debian nutzt Pulseaudio als Audioserver und ALSA als Teil des Linux Kernels um Audiogeräte zu nutzen (Soundkarten-Treiber).  
+Man kann verschiedene Tools nutzen um die Einstellungen der Audiogeräte anzusehen bzw. zu testen:
+ - alsamixer - CLI-Tool, Mixer
+ - alsabar - kann für Tests verwendet werden
+ - amixer - textbasiertes Tool um Einstellungen und Lautstärken der Soundkarten anzuzeigen
+   - `amixer -c 0` zeigt die Einstellungen für die Intel HDA Treiber/Soundkarte an.
+ - arecord, aplay - CLI Audiorecorder/-spieler; `aplay -L` zeigt viele Konfigurations-Parameter an
+und weitere
+ 
+Der Ton funktioniert nur mit den eingebauten Lautsprechern richtig. Mit alsamixer habe ich herausgefunden, dass beim Einstecken von Lautsprechern oder Kopfhörern in die Audio-Out/Kopfhörer-Buchse des Laptop, auch die Master-Lautstärke auf 0 gesetzt bzw. gemutet wird. Das Problem liegt darin, dass jeglicher Ton leise/aus ist, wenn die Master-Lautstärke niedrig ist, nicht nur die Lautstärke für einen gewissen Ausgang (z.B. Intern oder Kopfhörer).
+> Dafür muss man in alsamixer mit F6 und den Pfeiltasten die Soundkarte "HDA Intel PCH" oder "Intel HDA" auswählen.  
+In den Syslogs findet man keine Probleme bzw. Fehlermeldungen. Es scheint einfach nur eine Konfiguration nicht ganz zu der verbauten Soundkarte des verwendeten Laptops zu passen oder es muss vielleicht eine andere Soundkarte konfiguriert werden. Die Zeit (ein weiteres Wochenende) reichte aber nicht aus, dass ich den Fehler genau identifizieren und beheben konnte.
+
+
+### Erfolge
+Office und Phymex funktionieren erfolgreich und ich konnte sogar das Problem mit Phymex beheben, dass sich bei maximiertem Fenster eine Leiste über Steuerelemente geschoben hat und man diese dann nicht mehr nutzen konnte.  
+Ich habe einiges zur Nutzung von wine lernen können und konnte mein Wissen zu Linux im allgemeinen etwas vertiefen und erweitern.
+
+### Weiteres
+An diesem Projekt wurde über mehrere Monate verteilt gearbeitet.
+
+PlayOnLinux bietet eine einfachere Möglichkeit Programme in wine zu installieren und zu verwalten. Es bringt jedoch eigene Limitationen und Probleme mit sich und Phymex zu installieren ist damit schwieriger und die Installation von Microsoft Office hat damit bei einem Test nicht funktioniert.
+
+Man könnte versuchen Phymex, sowie die Phybox und die seriell gesendeten Daten zu reverse-engineeren (serielle Daten aufnehmen/mitschneiden) und eine Open-Source/Open-Hardware Phybox entwerfen, sowie ein platform-unabhängiges Open-Source Programm wie Phymex schreiben.
+
+Der Lehrer, für den dieses Projekt durchgeführt wurde, hat selbstständig den Casio Classpad Manager in wine (vermutlich in das default-wineprefix) installieren können. Eine engagierte Mathe-Lehrerin meinte, dass die Nutzung des Classpad Managers mit einem Casio CAS unter Linux gefährlich sei, da es den Casio CAS bricken könnte. Der Lehrer konnte das zwar nicht bestätigen, nutzt den Classpad Manager jedoch wahrscheinlich nur um den virtuellen Taschenrechner zu nutzen.
+
 
 ## Weitere Informationen zu Phymex/Phybox
 Weitere Informationen findet man unter http://didaktikchemie.uni-bayreuth.de/de/teachers/05chembox/index.html bzw. http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/ und verschiedenen veröffentlichten Dokumenten unter http://daten.didaktikchemie.uni-bayreuth.de/experimente/chembox/0_download/.
